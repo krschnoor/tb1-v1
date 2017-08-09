@@ -371,6 +371,7 @@ $scope.postChart = function(){
     $http.post('/closeYear/',{client:$scope.openclient[0].name,month:m,day:dy,year:y}).success(function(data,status,headers,config){
     alert("Fiscal Year " + newfye + " Created.");
     $scope.$parent.setContent('start.html')
+    //push it
     }).error(function(data,status,headers,config){console.log(status)  })
  
    }
