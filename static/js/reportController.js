@@ -27,7 +27,7 @@ setReports = function($scope){
 
       if(balArr==null || balArr == '' || balArr==undefined){
          adjBal += 0  }
-      else{adjBal +=  balArr[0].unadjbal  }    
+      else{adjBal +=  balArr[0].unadjbal || 0 }    
           
 
     return adjBal 
@@ -61,7 +61,7 @@ $scope.getSubTotalsAdj = function(type){
           
          if(balArr==null || balArr == '' || balArr==undefined){
          adjBal += 0  }
-         else{adjBal +=  balArr[0].unadjbal  }    
+         else{adjBal +=  balArr[0].unadjbal || 0 }    
          
         }
 
@@ -71,6 +71,27 @@ $scope.getSubTotalsAdj = function(type){
     }
 
 
+$scope.getSubTotalsPy = function(type){
+    
+      
+      var pybal = 0;
+      
+      var filtered = $scope.accounts.filter(function(account){ return account.class==type})
+       
+        for(ctr=0;ctr<filtered.length;ctr++){
+         
+         var balArr = filtered[ctr].balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) && (balance.tbmonth == $scope.currenttbmonth)) })
+          
+          if(balArr==null || balArr == '' || balArr==undefined){
+           pybal += 0  }
+          else{pybal +=  balArr[0].pybal || 0 }    
+         
+        }
+
+           
+      return pybal
+
+    }
 
 
 
@@ -87,7 +108,7 @@ $scope.getSubTotalsUnadj = function(type){
           
           if(balArr==null || balArr == '' || balArr==undefined){
            unadjBal += 0  }
-          else{unadjBal +=  balArr[0].unadjbal  }    
+          else{unadjBal +=  balArr[0].unadjbal  || 0}    
          
         }
 
@@ -154,6 +175,30 @@ retutrn
 }
 
 
+$scope.getTotalsPy = function(category){
+  
+      var pybal = 0;
+      
+      var filtered = $scope.accounts.filter(function(account){ return account.category==category})
+      
+        for(ctr=0;ctr<filtered.length;ctr++){
+         
+         var balArr = filtered[ctr].balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) && (balance.tbmonth == $scope.currenttbmonth)) })
+        
+                  
+         if(balArr==null || balArr == '' || balArr==undefined){
+         pybal += 0  }
+         else{pybal +=  balArr[0].pybal || 0 }    
+         
+        }
+
+           
+      return pybal
+
+    }
+
+
+
 
 
 $scope.getTotalsUnadj = function(category){
@@ -169,7 +214,7 @@ $scope.getTotalsUnadj = function(category){
                   
          if(balArr==null || balArr == '' || balArr==undefined){
          unadj += 0  }
-         else{unadj +=  balArr[0].unadjbal  }    
+         else{unadj +=  balArr[0].unadjbal || 0 }    
          
         }
 
@@ -299,7 +344,34 @@ $scope.getTotalsAdj = function(category){
     return totalAdjustments
  }
 
+$scope.getTotalsPyAll = function(){
+    
+      
+      var adjBal = 0;
+      var totAdj = 0;
+        
+        for(var ctr=0;ctr<$scope.accounts.length;ctr++){
+         
+         var balArr = $scope.accounts[ctr].balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) && (balance.tbmonth == $scope.currenttbmonth)) })
+        
+         if(balArr==null || balArr == '' || balArr==undefined){
+         adjBal += 0  }
+         else{adjBal += parseFloat(balArr[0].pybal) || 0 }         
+         
+         
+        if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
+             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             totAdj += adjBal;
+              adjBal = 0;}
+        else{totAdj -= adjBal;
+             adjBal = 0;}
+      
+        }
 
+           
+      return totAdj 
+
+    }
 
 $scope.getTotalsUnadjAll = function(){
     

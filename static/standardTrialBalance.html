@@ -11,15 +11,23 @@
         <table class="table table-responsive" style="border-collapse:collapse" >
         <thead>
         <tr style="background-color:#000;color:#fff">
-        <th   class="col-xs-2">Account</th>
-        <th   class="col-xs-1 text-left">Unadj. Balance</th>
-        <th   class="col-xs-1 text-left" >Adjustments</th>
-        <th   class="col-xs-1 text-left">Adjusted Balance</th>
+        <td><table><tr><td><strong>Account</strong></td></tr></table></td>
+         <td ><table><tr><td width="100" align="right">Py Bal</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Unadj. Bal.</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Adjustments</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Adj. Bal.</td> </tr></table></td>
         </tr>
         </thead>
         <tbody>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  orderBy : ['fs' , 'csort','ssort' ] " ng-init="showDetail==true" >'
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -62,6 +70,7 @@
          </tr>
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td valign="top"><strong><h6>Trial Balance Totals:</h6></strong></td></tr></table></td>
+          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid #4393c1 .1em" width='100' align='right'>{{getTotalsPyAll() | number:2}} </td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid #4393c1 .1em" width='100' align='right'>{{getTotalsUnadjAll() | number:2}} </td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid #4393c1 .1em" width='100' align='right'>{{getTotalsEntriesAll() | number:2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid #4393c1 .1em" width='100' align='right'>{{getTotalsAdjAll() | number: 2}}</td></tr></table></td>

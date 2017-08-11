@@ -20,8 +20,26 @@ this.updateBalances = function(scope){
    })
 
 
-return deferred.promise
+ return deferred.promise
 
-  }
+ }
+
+
+this.closeYear= function(scope,m,dy,y){
+
+ var deferred = $q.defer()
+
+   $http.post('/closeYear/',{client:scope.openclient[0].name,month:m,day:dy,year:y}).success(function(data,status,headers,config){
+   
+    deferred.resolve()
+   
+    }).error(function(data,status,headers,config){console.log(status)  })
+
+
+ return deferred.promise
+
+ }
+
+
 
 })

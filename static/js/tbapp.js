@@ -94,7 +94,7 @@ $scope.printToCart = function(printSectionId) {
 
 
 
-  // will put in chart controller
+  // will put in chart service
 
    $scope.addAccount = function(cat,cls,sub,ssort,name){
    
@@ -183,7 +183,7 @@ $scope.printToCart = function(printSectionId) {
               csort: parseInt(csort),
               ssort: parseInt(ssort),
               fs:fs, 
-              balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,unadjbal:0,entries:[],adjbal:0}]
+              balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:0,unadjbal:0,entries:[],adjbal:0}]
               }
 
         
@@ -199,7 +199,7 @@ $scope.printToCart = function(printSectionId) {
 }
 
 
-//will put in chart controller
+//will put in chart service
  $scope.getChartBegBalances = function(){
  
   var totUnadj = 0
@@ -210,19 +210,25 @@ $scope.printToCart = function(printSectionId) {
      && (balance.tbmonth == $scope.currenttbmonth)) })
  
      if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=='Expense' || $scope.accounts[ctr].category=='CostOfGoodsSold'){
-       totUnadj += balArr[0].unadjbal}
-       else{
-         totUnadj -= balArr[0].unadjbal
-       }
+         if( balArr=='' || balArr==null || balArr==undefined){
+           totUnadj +=0;}
+         else{ totUnadj += balArr[0].unadjbal}
+      }
+     
+     else{
     
-
+      if( balArr=='' || balArr==null || balArr==undefined){
+         totUnadj ==0;}
+      else{ totUnadj -= balArr[0].unadjbal}
      }
+   
+  }
 
   return parseFloat(totUnadj) || 0
 
 }
 
-//will put in chartcontroller
+//will put in chartservice
 $scope.postChart = function(){
 
   
@@ -332,61 +338,42 @@ $scope.postChart = function(){
 }
 
 
- // put in ajecontroller.js
- $scope.getAjes = function(name){
-  $http.get('/ajes/get',{params:{db:name}}).success(function(data,status,headers,config){
-    
+ // put in ajeService
+  $scope.getAjes = function(name){
+  ajeservice.getAjes($scope,name) }
+
+  //put in ajeService
+  $scope.getAje = function(name,id){
+    ajeservice.getAje($scope,name,id).then(function(){
   
-  $scope.ajeList = data;  
+    $scope.setContent('ajeedit.html') }) }
 
-
-      }).error(function(data,status,headers,config){   })
-
-  }
-
-  //put ajecontroller.js
-   $scope.getAje = function(name,id){
-   $http.get('/aje/get',{params:{db:name, id:id}}).success(function(data,status,headers,config){
-  
-   
-   $scope.ajeEdit = data
-   console.log(data)
-   $scope.setContent('ajeedit.html')
-   
-    }).error(function(data,status,headers,config){   })
-
-  }
 
 
   $scope.closeFye = function(newfye){
   
    if($scope.closeYearForm.$valid){
- 
   
-    var d = new Date(newfye);
-    var m = d.getMonth() + 1; 
-    var dy = d.getDate() + 1 
-    var y = d.getYear() + 1900; 
+     var d = new Date(newfye);
+     var m = d.getMonth() + 1; 
+     var dy = d.getDate() + 1 
+     var y = d.getYear() + 1900; 
    
-    // save unadjusted balance then use that to fill py balance in new balance object
-    closeYearService.updateBalances($scope).then(function(){
+     // save unadjusted balance then use that to fill py balance in new balance object
+     closeYearService.updateBalances($scope).then(function(){
  
-    //should  put in  closeyearservice too 
+        closeYearService.closeYear($scope,m,dy,y).then(function(){
+        alert("Fiscal Year " + newfye + " Created.");
+        $scope.$parent.setContent('start.html')
+       })
 
-    $http.post('/closeYear/',{client:$scope.openclient[0].name,month:m,day:dy,year:y}).success(function(data,status,headers,config){
-    alert("Fiscal Year " + newfye + " Created.");
-    $scope.$parent.setContent('start.html')
-    //push it
-    }).error(function(data,status,headers,config){console.log(status)  })
-
-
-    })
+     })
 
     
  
    }
 
-  }
+ }
 
 
  

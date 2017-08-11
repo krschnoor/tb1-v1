@@ -14,11 +14,12 @@
         <table class="table table-responsive" style="padding:10px;border-collapse:collapse" >
         <thead>
         <tr style="background-color:#000;color:#fff">
-        <th   class="col-xs-2">Account</th>
-        <th   class="col-xs-1 text-left">Unadj. Balance</th>
-        <th   class="col-xs-1 text-left" >Dr</th>
-        <th   class= "col-xs-1 text-left">Cr</th>
-        <th   class="col-xs-1 text-left">Adjusted Balance</th>
+       <td><table><tr><td><strong>Account</strong></td></tr></table></td>
+         <td ><table><tr><td width="100" align="right">Py Bal</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Unadj. Bal.</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Dr.</td></tr></table></td>
+         <td><table><tr><td width="100"  align="right">Cr</td> </tr></table></td>
+         <td><table><tr><td width="100"  align="right">Adj. Bal.</td> </tr></table></td>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,13 @@
         <tr><td><h4>Sales</h4></td></tr>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Sales'} | orderBy : 'ssort' "   >
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -58,6 +66,7 @@
          
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong >&nbsp;Sub Total Sales</strong></td></tr></table></td>
+         <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('Sales') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('Sales') | number: 2}}</td></tr></table></td>
          <td><table><tr><td  style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('Sales') | number: 2}}</td></tr></table></td>
          <td><table><tr><td  style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('Sales') | number: 2}}</td></tr></table></td>
@@ -70,6 +79,13 @@
          <tr><td><h4>Fees</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Fees'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -102,6 +118,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total Fees</strong></td></tr></table></td>
+         <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('Fees') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('Fees') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('Fees') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('Fees') | number: 2}}</td></tr></table></td>
@@ -115,6 +132,7 @@
 
          <tr valign="center" class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong><h4>&nbsp;Total Revenues</h4></strong></td></tr></table></td>
+         <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsPy('Revenue') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsUnadj('Revenue') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid   #4393c1 .1em; " width='100' align='right'>{{getTotalsDebits('Revenue') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em; "  width='100' align='right'>{{getTotalsCredits('Revenue') | number: 2}}</td></tr></table></td>
@@ -129,6 +147,13 @@
          <tr><td colspan="5"><h3 class="bg-info text-white px-2 py-2">Cost of Goods Sold</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'CostOfGoodsSold'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -161,6 +186,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total Cost of Goods Sold</strong></td></tr></table></td>
+         <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
@@ -174,6 +200,7 @@
 
          <tr valign="center" class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong><h4>&nbsp;Gross Profit</h4></strong></td></tr></table></td>
+         <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsPy('Revenue') - getTotalsPy('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsUnadj('Revenue') - getTotalsUnadj('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid   #4393c1 .1em; " width='100' align='right'>{{getTotalsDebits('Revenue') + getTotalsDebits('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em; "  width='100' align='right'>{{getTotalsCredits('Revenue') + getTotalsCredits('CostOfGoodsSold') | number: 2}}</td></tr></table></td>
@@ -189,6 +216,13 @@
          <tr><td><h4>Selling Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'SellingExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -221,6 +255,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total Selling Expenses</strong></td></tr></table></td>
+         <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('SellingExpenses') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('SellingExpenses') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('SellingExpenses') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('SellingExpenses') | number: 2}}</td></tr></table></td>
@@ -234,6 +269,13 @@
          <tr><td><h4>General Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'GeneralExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -266,6 +308,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total General Expenses</strong></td></tr></table></td>
+         <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('GeneralExpenses') | number: 2}}</td></tr></table></td>
@@ -278,6 +321,7 @@
 
         <tr valign="center" class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong><h4>&nbsp;Net Operating Income</h4></strong></td></tr></table></td>
+         <td style="padding-top:20px" ><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsPy('Revenue') - getSubTotalsPy('CostOfGoodsSold') - getSubTotalsPy('SellingExpenses') -getSubTotalsPy('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px" ><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsUnadj('Revenue') - getSubTotalsUnadj('CostOfGoodsSold') - getSubTotalsUnadj('SellingExpenses') -getSubTotalsUnadj('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid   #4393c1 .1em; " width='100' align='right'>{{getTotalsDebits('Revenue') + getSubTotalsDebits('CostOfGoodsSold') + getSubTotalsDebits('SellingExpenses') + getSubTotalsDebits('GeneralExpenses') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em; "  width='100' align='right'>{{getTotalsCredits('Revenue') + getSubTotalsCredits('CostOfGoodsSold') + getSubTotalsCredits('SellingExpenses')  + getSubTotalsCredits('GeneralExpenses') | number: 2}}</td></tr></table></td>
@@ -292,6 +336,13 @@
          <tr><td><h4>Other Income</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherIncome'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -324,6 +375,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total Other Income</strong></td></tr></table></td>
+         <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('OtherIncome') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('OtherIncome') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('OtherIncome') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('OtherIncome') | number: 2}}</td></tr></table></td>
@@ -337,6 +389,13 @@
          <tr><td><h4>Other Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherExpense'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
+          <td >
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <tr>
+         <td width='100' align='right' >{{balance.pybal | number:2}}</td>
+         </tr>
+         </table>
+         </td> 
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
@@ -369,6 +428,7 @@
 
          <tr class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong>&nbsp;Sub Total Other Expense</strong></td></tr></table></td>
+          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsPy('OtherExpense') | number: 2}}</td></tr></table></td>
          <td ><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsUnadj('OtherExpense') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsDebits('OtherExpense') | number: 2}}</td></tr></table></td>
          <td><table><tr><td style="border-top: solid #4393c1 .1em" width='100' align='right'>{{getSubTotalsCredits('OtherExpense') | number: 2}}</td></tr></table></td>
@@ -381,6 +441,7 @@
 
         <tr valign="center" class="bg-primary text-white px-2 py-2">
          <td><table><tr><td><strong><h4>&nbsp;Net Income</h4></strong></td></tr></table></td>
+         <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsPy('Revenue') - getSubTotalsPy('CostOfGoodsSold') - getSubTotalsPy('SellingExpenses') -getSubTotalsPy('GeneralExpenses') + getSubTotalsPy('OtherIncome')  -getSubTotalsPy('OtherExpense') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em"  width='100' align='right'>{{getTotalsUnadj('Revenue') - getSubTotalsUnadj('CostOfGoodsSold') - getSubTotalsUnadj('SellingExpenses') -getSubTotalsUnadj('GeneralExpenses') + getSubTotalsUnadj('OtherIncome')  -getSubTotalsUnadj('OtherExpense') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid   #4393c1 .1em; " width='100' align='right'>{{getTotalsDebits('Revenue') + getSubTotalsDebits('CostOfGoodsSold') + getSubTotalsDebits('SellingExpenses') + getSubTotalsDebits('GeneralExpenses') + getSubTotalsDebits('OtherIncome')  + getSubTotalsDebits('OtherExpense') | number: 2}}</td></tr></table></td>
          <td style="padding-top:20px"><table><tr><td style="border-bottom: double #4393c1; border-top: solid  #4393c1 .1em; "  width='100' align='right'>{{getTotalsCredits('Revenue') + getSubTotalsCredits('CostOfGoodsSold') + getSubTotalsCredits('SellingExpenses')  + getSubTotalsCredits('GeneralExpenses') + getSubTotalsCredits('OtherIncome')  + getSubTotalsCredits('OtherExpense')| number: 2}}</td></tr></table></td>

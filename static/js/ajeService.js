@@ -25,9 +25,31 @@ this.postAje = function(scope){
 }
 
 
-this.getAjes = function(){
-return ajeList
+this.getAjes = function(scope,name){
+ 
+ var deferred = $q.defer()
+ $http.get('/ajes/get',{params:{db:name}}).success(function(data,status,headers,config){
+ scope.ajeList = data;
+ deferred.resolve()
+ }).error(function(data,status,headers,config){   })
      
+return deferred.promise
+
+}
+
+
+this.getAje = function(scope,name,id){
+ 
+ var deferred = $q.defer()
+ 
+  $http.get('/aje/get',{params:{db:name, id:id}}).success(function(data,status,headers,config){
+   scope.ajeEdit = data
+   console.log(data)
+   deferred.resolve()
+   }).error(function(data,status,headers,config){   })
+     
+ return deferred.promise
+
 }
 
 
