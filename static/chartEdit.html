@@ -24,7 +24,7 @@
          </tr>
          </thead>
          <tbody>
-          <tr ng-repeat="account in accounts  |  orderBy : ['fs' , 'csort' ]"   >
+          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts  |  orderBy : ['fs' , 'csort' ]"   >
             
            <td>{{account.name}}</td>
            <td>{{account.class}}</td>

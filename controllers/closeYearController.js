@@ -24,7 +24,7 @@ exports.closeYear = function(req,res){
             
                collection.find().toArray(function (err, items) {
                 for(var ctr=0;ctr<items.length;ctr++){
-                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,unadjbal:0,entries:[],adjbal:0})
+                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:0,unadjbal:0,entries:[],adjbal:0})
                 collection.save(items[ctr],{w:1},function(err,results){
                 console.log(results);
                 res.json(200)

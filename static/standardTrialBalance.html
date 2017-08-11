@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-         <tr ng-repeat="account in accounts |  orderBy : ['fs' , 'csort','ssort' ] " ng-init="showDetail==true" >'
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  orderBy : ['fs' , 'csort','ssort' ] " ng-init="showDetail==true" >'
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  

@@ -18,13 +18,6 @@ app.directive('focus', function() {
 });
 
 
-//comment
-
-// comment 2
-
-//comment 3
-
-// comment 456
 
 
 app.directive('nextrow', function () {
@@ -59,21 +52,22 @@ app.directive('nextrow', function () {
 
 
 
-app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice',function($scope,$http,$location,$timeout,ajeservice){
+app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService',function($scope,$http,$location,$timeout,ajeservice,closeYearService){
 
   $scope.accounts;
   $scope.currentAccount;
   $scope.newclient = {};
   $scope.currentfye ;
-  
   $scope.openclient;
   $scope.openclientfyes = [];
   $scope.ajeList 
   $scope.nextfye
-
   $scope.ajeEdit 
   
-   
+  setJournalEntry($scope)
+  setReports($scope)
+
+
 
   $scope.postAjeEdit = function(){
 
@@ -100,7 +94,7 @@ $scope.printToCart = function(printSectionId) {
 
 
 
-  
+  // will put in chart controller
 
    $scope.addAccount = function(cat,cls,sub,ssort,name){
    
@@ -205,7 +199,7 @@ $scope.printToCart = function(printSectionId) {
 }
 
 
-
+//will put in chart controller
  $scope.getChartBegBalances = function(){
  
   var totUnadj = 0
@@ -228,7 +222,7 @@ $scope.printToCart = function(printSectionId) {
 
 }
 
-
+//will put in chartcontroller
 $scope.postChart = function(){
 
   
@@ -338,7 +332,7 @@ $scope.postChart = function(){
 }
 
 
- 
+ // put in ajecontroller.js
  $scope.getAjes = function(name){
   $http.get('/ajes/get',{params:{db:name}}).success(function(data,status,headers,config){
     
@@ -350,7 +344,7 @@ $scope.postChart = function(){
 
   }
 
-
+  //put ajecontroller.js
    $scope.getAje = function(name,id){
    $http.get('/aje/get',{params:{db:name, id:id}}).success(function(data,status,headers,config){
   
@@ -374,17 +368,28 @@ $scope.postChart = function(){
     var dy = d.getDate() + 1 
     var y = d.getYear() + 1900; 
    
+    // save unadjusted balance then use that to fill py balance in new balance object
+    closeYearService.updateBalances($scope).then(function(){
+ 
+    //should  put in  closeyearservice too 
+
     $http.post('/closeYear/',{client:$scope.openclient[0].name,month:m,day:dy,year:y}).success(function(data,status,headers,config){
     alert("Fiscal Year " + newfye + " Created.");
     $scope.$parent.setContent('start.html')
     //push it
     }).error(function(data,status,headers,config){console.log(status)  })
+
+
+    })
+
+    
  
    }
 
   }
 
 
+ 
  
 
 }])

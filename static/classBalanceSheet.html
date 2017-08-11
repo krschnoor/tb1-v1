@@ -12,19 +12,19 @@
         <thead>
         <tr style="background-color:#000;color:#fff">
         <th   class="col-xs-2">Account</th>
-        <th   class="col-xs-1 text-left">Unadj. Balance</th>
+        <th   class="col-xs-1 text-left">UnAdj. Bal.</th>
         <th   class="col-xs-1 text-left" >Dr</th>
         <th   class= "col-xs-1 text-left">Cr</th>
-        <th   class="col-xs-1 text-left">Adjusted Balance</th>
+        <th   class="col-xs-1 text-left">Adj. Bal.</th>
         </tr>
         </thead>
         <tbody>
         <tr><td colspan="5"><strong><h3 class="bg-info text-white" >Assets</h3></strong></td></tr>
         <tr><td colspan="5"><h4 class="bg-info text-white px-2 py-2">Current Assets</h4></td></tr>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'CurrentAsset'} | orderBy : 'ssort' "   >
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'CurrentAsset'} | orderBy : 'ssort' "   >
          <td >{{account.name}}</td>
          <td >
-         <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+         <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
          <tr>
          <td width='100' align='right' >{{balance.unadjbal | number:2}}</td>
          </tr>
@@ -65,7 +65,7 @@
          </tr>
           
          <tr><td colspan="5"><h4 class="bg-info text-white px-2 py-2">Fixed Assets</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'FixedAsset'} | orderBy : 'ssort'  ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'FixedAsset'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -109,7 +109,7 @@
          </tr>
 
          <tr><td colspan="5"><h4 class="bg-info text-white px-2 py-2">Other Assets</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'Other Assets'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Other Assets'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -167,7 +167,7 @@
 
          <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Liabilities</h3></strong></td></tr>
          <tr><td colspan="5"><h4 class="bg-info text-white px-2 py-2">Current Liabilities</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'CurrentLiability'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'CurrentLiability'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -212,7 +212,7 @@
 
 
          <tr><td colspan="5"><h4 class="bg-info text-white px-2 py-2">Long Term Debt</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'LongTermLiability'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'LongTermLiability'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -271,7 +271,7 @@
 
          <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Equity</h3></strong></td></tr>
          <tr><td><h4>Equity</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'Equity'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Equity'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  

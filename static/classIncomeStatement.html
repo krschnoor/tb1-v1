@@ -24,7 +24,7 @@
         <tbody>
         <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Revenues</h3></strong></td></tr>
         <tr><td><h4>Sales</h4></td></tr>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'Sales'} | orderBy : 'ssort' "   >
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Sales'} | orderBy : 'ssort' "   >
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -68,7 +68,7 @@
          </tr>
           
          <tr><td><h4>Fees</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'Fees'} | orderBy : 'ssort'  ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Fees'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -127,7 +127,7 @@
          
 
          <tr><td colspan="5"><h3 class="bg-info text-white px-2 py-2">Cost of Goods Sold</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'CostOfGoodsSold'} | orderBy : 'ssort'  ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'CostOfGoodsSold'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -187,7 +187,7 @@
 
          <tr><td colspan="5"><strong ><h3 class="bg-info text-white px-2 py-2">Selling Expenses</h3></strong></td></tr>
          <tr><td><h4>Selling Expenses</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'SellingExpenses'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'SellingExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -232,7 +232,7 @@
 
          <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">General Expenses</h3></strong></td></tr>
          <tr><td><h4>General Expenses</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'GeneralExpenses'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'GeneralExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -290,7 +290,7 @@
 
         <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Other Income</h3></strong></td></tr>
          <tr><td><h4>Other Income</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'OtherIncome'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherIncome'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
@@ -335,7 +335,7 @@
 
          <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Other Expenses</h3></strong></td></tr>
          <tr><td><h4>Other Expenses</h4></td>
-         <tr ng-repeat="account in accounts |  filter : {'class' : 'OtherExpense'} | orderBy : 'ssort' ">
+         <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherExpense'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
          <td >
          <table ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
