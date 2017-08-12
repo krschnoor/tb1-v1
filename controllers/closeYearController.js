@@ -17,14 +17,23 @@ exports.closeYear = function(req,res){
             var tbmonth = req.body.month
             var tbday = req.body.day
             var tbyear = req.body.year
+            var tbmonthp = req.body.monthp
+            var tbdayp = req.body.dayp
+            var tbyearp = req.body.yearp
+
+
+
 
            console.log(tbmonth + ' ' + tbday + '' + tbyear)
+            console.log(tbmonthp + ' ' + tbdayp + '' + tbyearp)
 
              var collection = db.collection('accounts');
             
                collection.find().toArray(function (err, items) {
                 for(var ctr=0;ctr<items.length;ctr++){
-                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:0,unadjbal:0,entries:[],adjbal:0})
+                var balArr =  items[ctr].balances.filter(function(balance){ return ((balance.tbyear == tbyearp ) &&  (balance.tbday == tbdayp) && (balance.tbmonth == tbmonthp)) })
+                console.log("the adjusted balance is" + balArr[0].adjbal)
+                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:balArr[0].adjbal,unadjbal:0,entries:[],adjbal:0})
                 collection.save(items[ctr],{w:1},function(err,results){
                 console.log(results);
                 res.json(200)

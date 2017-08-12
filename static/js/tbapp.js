@@ -358,11 +358,15 @@ $scope.postChart = function(){
      var m = d.getMonth() + 1; 
      var dy = d.getDate() + 1 
      var y = d.getYear() + 1900; 
+
+     var dp = $scope.currenttbday;
+     var mp = $scope.currenttbmonth;
+     var yp = $scope.currenttbyear;
    
      // save unadjusted balance then use that to fill py balance in new balance object
      closeYearService.updateBalances($scope).then(function(){
  
-        closeYearService.closeYear($scope,m,dy,y).then(function(){
+        closeYearService.closeYear($scope,m,dy,y,mp,dp,yp).then(function(){
         alert("Fiscal Year " + newfye + " Created.");
         $scope.$parent.setContent('start.html')
        })

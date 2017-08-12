@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Revenues</h3></strong></td></tr>
+        <tr><td colspan="6"><strong><h3 class="bg-info text-white px-2 py-2">Revenues</h3></strong></td></tr>
         <tr><td><h4>Sales</h4></td></tr>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'Sales'} | orderBy : 'ssort' "   >
          <td >{{account.name}}</td>
@@ -144,7 +144,7 @@
 
          
 
-         <tr><td colspan="5"><h3 class="bg-info text-white px-2 py-2">Cost of Goods Sold</h4></td>
+         <tr><td colspan="6"><h3 class="bg-info text-white px-2 py-2">Cost of Goods Sold</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'CostOfGoodsSold'} | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
           <td >
@@ -212,7 +212,7 @@
 
 
 
-         <tr><td colspan="5"><strong ><h3 class="bg-info text-white px-2 py-2">Selling Expenses</h3></strong></td></tr>
+         <tr><td colspan="6"><strong ><h3 class="bg-info text-white px-2 py-2">Selling Expenses</h3></strong></td></tr>
          <tr><td><h4>Selling Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'SellingExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
@@ -265,7 +265,7 @@
 
          </tr> 
 
-         <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">General Expenses</h3></strong></td></tr>
+         <tr><td colspan="6"><strong><h3 class="bg-info text-white px-2 py-2">General Expenses</h3></strong></td></tr>
          <tr><td><h4>General Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'GeneralExpenses'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
@@ -332,7 +332,7 @@
          </tr>
 
 
-        <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Other Income</h3></strong></td></tr>
+        <tr><td colspan="6"><strong><h3 class="bg-info text-white px-2 py-2">Other Income</h3></strong></td></tr>
          <tr><td><h4>Other Income</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherIncome'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
@@ -385,7 +385,7 @@
 
          </tr> 
 
-         <tr><td colspan="5"><strong><h3 class="bg-info text-white px-2 py-2">Other Expenses</h3></strong></td></tr>
+         <tr><td colspan="6"><strong><h3 class="bg-info text-white px-2 py-2">Other Expenses</h3></strong></td></tr>
          <tr><td><h4>Other Expenses</h4></td>
          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'OtherExpense'} | orderBy : 'ssort' ">
          <td >{{account.name}}</td>
