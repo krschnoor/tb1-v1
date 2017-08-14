@@ -21,6 +21,7 @@ app.post('/adjBalances',accounts.updateChart);
 app.post('/closeYear/',closefye.closeYear)
 
 app.post('/newAccount',accounts.addAccount);
+app.post('/setAccountStatus/',accounts.inactivateAccount);
 app.post('/newEntry',entry.addEntry);
 app.post('/newEntryEdit',entry.addEntryEdit);
 app.get('/ajes/get',entry.getAjes);

@@ -33,7 +33,7 @@ exports.closeYear = function(req,res){
                 for(var ctr=0;ctr<items.length;ctr++){
                 var balArr =  items[ctr].balances.filter(function(balance){ return ((balance.tbyear == tbyearp ) &&  (balance.tbday == tbdayp) && (balance.tbmonth == tbmonthp)) })
                 console.log("the adjusted balance is" + balArr[0].adjbal)
-                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:balArr[0].adjbal,unadjbal:0,entries:[],adjbal:0})
+                items[ctr].balances.push({tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:balArr[0].active,pybal:balArr[0].adjbal,unadjbal:0,entries:[],adjbal:0})
                 collection.save(items[ctr],{w:1},function(err,results){
                 console.log(results);
                 res.json(200)

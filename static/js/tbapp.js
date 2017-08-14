@@ -52,7 +52,8 @@ app.directive('nextrow', function () {
 
 
 
-app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService',function($scope,$http,$location,$timeout,ajeservice,closeYearService){
+app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService','chartservice',
+function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservice){
 
   $scope.accounts;
   $scope.currentAccount;
@@ -60,9 +61,11 @@ app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeserv
   $scope.currentfye ;
   $scope.openclient;
   $scope.openclientfyes = [];
-  $scope.ajeList 
-  $scope.nextfye
-  $scope.ajeEdit 
+  $scope.ajeList;
+  $scope.nextfye;
+  $scope.ajeEdit ;
+  $scope.content;
+  $scope.activeAccounts;
   
   setJournalEntry($scope)
   setReports($scope)
@@ -84,11 +87,32 @@ app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeserv
   }
     
 
+  $scope.inactivateAccount = function(account,balance) {
+  
+  var entriesArr = $scope.ajeList.filter(function(aje){ return ((aje.accountID==account._id) && (aje.tbdate ==$scope.currentfye)) })       
+   
+   if( entriesArr.length>0  || parseFloat(balance.unadjbal)!=0){
+     alert("Account has Activity, Cannot Deactivate.")
+     balance.active = true
+     return
+   }
+   
+   chartservice.inactivateAccount($scope,account).then(function(){
+
+   alert("status Updated.")
+
+   })
+
+  }
+    
+
+
+
 $scope.printToCart = function(printSectionId) {
         var innerContents = document.getElementById(printSectionId).innerHTML;
         var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
         popupWinindow.document.open();
-        popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" media="all" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+        popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" media="print" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /></head><body onload="window.print()">' + innerContents + '</html>');
         popupWinindow.document.close();
       }
 
@@ -183,7 +207,7 @@ $scope.printToCart = function(printSectionId) {
               csort: parseInt(csort),
               ssort: parseInt(ssort),
               fs:fs, 
-              balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,pybal:0,unadjbal:0,entries:[],adjbal:0}]
+              balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]
               }
 
         
@@ -249,17 +273,19 @@ $scope.postChart = function(){
   $scope.currenttbday = $scope.currentfye.getDate() 
   $scope.currenttbmonth = $scope.currentfye.getMonth() + 1
   $scope.currentfye = ye;
+  $scope.getActiveAccounts($scope)
   $scope.setContent('start.html')}
 
   $scope.setAccount = function(acct){
   $scope.currentAccount = acct}
-  $scope.content;
+
   
     
   $scope.setContent = function(page){ 
      
      if(page=='aje.html' || page =='ajeedit.html'){
        setJournalEntry($scope)
+       $scope.getActiveAccounts($scope)
       }
      if(page=='classBalanceSheet.html' || page=='classIncomeStatement.html'
       || page=='standardTrialBalance.html'){
@@ -352,6 +378,13 @@ $scope.postChart = function(){
 
   $scope.closeFye = function(newfye){
   
+  var balArr = $scope.openclientfyes.filter(function(fye){return fye = newfye})
+
+  if(balArr.length>0){
+    alert("Cannot Overwrite Existing Period.")
+    return false
+  }
+
    if($scope.closeYearForm.$valid){
   
      var d = new Date(newfye);

@@ -1,4 +1,4 @@
-<div style="font-size:x-small;margin-top:-20px; width: 100%;height: 100vh; min-height:100vh; overflow-y: auto" ng-class="main" class="container container-fluid col-sm-12" autoscroll="true">
+<div style="font-size:x-small;margin-top:-20px; width: 100%;height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container container-fluid col-sm-12" autoscroll="true">
    <div class="panel-group">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -19,25 +19,28 @@
          <th   class="col-xs-3">Account</th>
          <th   class="col-xs-1 text-left" >Class</th>
          <th   class= "col-xs-3 text-left">Sub-Type</th>
-         <th   class= "col-xs-2 text-left">Sub-Sort</th>
-         <th  style="width:60px;word-wrap:break-word"  class="col-md-4 text-left">Unadjusted Balance</th>
+         <th   class= "col-xs-1 text-left">Sub-Sort</th>
+         <th   class="col-md-4 text-left">Unadj. Bal.</th>
+         <th>Active</th>
          </tr>
          </thead>
          <tbody>
-          <tr ng-if="isCurrentAccount(account)" ng-repeat="account in accounts  |  orderBy : ['fs' , 'csort' ]"   >
+          <tr ng-init="status==false" ng-if="isCurrentAccount(account)" ng-repeat="account in accounts  |  orderBy : ['fs' , 'csort' ]"   >
             
-           <td>{{account.name}}</td>
-           <td>{{account.class}}</td>
-           <td>{{account.subtype}}</td>
+           <td width="20%">{{account.name}}</td>
+           <td width="20%">{{account.class}}</td>
+           <td width="20%">{{account.subtype}}</td>
            
-           <td><input name="ssort" required ng-required="true" focus class="text-right col-lg-8" type="number" ng-model="account.ssort"  /></td>
+           <td width="11%"><input name="ssort" required ng-required="true" focus class="text-right col-lg-9" type="number" ng-model="account.ssort"  /></td>
           
-           <td    ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
-           <input name="unadjbal"  class="text-right col-lg-10" type="number" ng-model="balance.unadjbal"  /></td>
+           <td  width="29%"  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
+           <input  name="unadjbal"  class="text-right col-lg-10" type="number" ng-model="balance.unadjbal"  /></td>
+           <td ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">
+           <input  type="checkbox" ng-model="balance.active" ng-change="inactivateAccount(account,balance)" /></td>
            </ng-form>
            </tr>
           </tbody>
-          </table>
+
           </div>
           </form>
          </div>

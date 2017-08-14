@@ -509,6 +509,44 @@ $scope.getTotalsEntriesAll = function(){
 
  }
 
+$scope.isActiveAccount = function(account){
+ 
+  var balArr = null
+
+  var balArr = account.balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) && (balance.tbmonth == $scope.currenttbmonth)) })
+
+ 
+  if(balArr == null || balArr == undefined || balArr=='')
+  {return false}
+  else if(balArr[0].active==false){
+    return false}
+  else{return true }
+
+ }
+
+
+$scope.getActiveAccounts = function($scope){
+ 
+  var tempArr=[];
+
+  for(var ctr=0;ctr<$scope.accounts.length;ctr++){
+
+  var balArr =  $scope.accounts[ctr].balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) && (balance.tbmonth == $scope.currenttbmonth)) })   
+
+   if(balArr[0].active == true)
+   {tempArr.push($scope.accounts[ctr])}
+
+  }    
+
+ $scope.activeAccounts = tempArr
+ 
+
+}
+
+
+
+
+
 
 
 }

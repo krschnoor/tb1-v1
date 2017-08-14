@@ -111,3 +111,36 @@ MongoClient.connect("mongodb://127.0.0.1:27017/" , function(err,db){
 
 }
 
+
+
+exports.inactivateAccount = function(req,res){
+
+MongoClient.connect("mongodb://127.0.0.1:27017/", function(err,db){
+ 
+ 
+
+var newDB = db.db(req.body.client)
+var account = req.body.account
+
+ var collection = newDB.collection('accounts')
+
+var id = require('mongodb').ObjectID(account._id)
+ 
+    collection.update({'_id' : id}, {'$set':{'balances' : account.balances}},function(err,result){
+             if(!err){
+               console.log('logging update ssort result' + result)
+               res.send(200)
+                }
+
+             else{
+               console.log('err is ' + err)
+               res.send(err);
+              }
+
+ 
+
+    })
+
+ })
+
+}
