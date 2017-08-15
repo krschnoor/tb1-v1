@@ -370,6 +370,7 @@ $scope.postChart = function(){
 
   //put in ajeService
   $scope.getAje = function(name,id){
+    
     ajeservice.getAje($scope,name,id).then(function(){
   
     $scope.setContent('ajeedit.html') }) }

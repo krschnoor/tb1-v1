@@ -31,6 +31,16 @@ $scope.clearAje = function()
   $scope.addLine = function(index){
   $scope.aje.splice(index, 0,{accountID:"",tbdate:$scope.currentfye,desc:"",debit:0,credit:0});}
   
+  $scope.deleteLineEdit = function(index){
+  $scope.ajeEdit.splice(index,1); }
+ 
+  $scope.addLineEdit = function(index){
+  var ajeid = $scope.ajeEdit[0].ajeid
+  $scope.ajeEdit.splice(index, 0,{accountID:"",ajeid:ajeid,tbdate:$scope.currentfye,desc:"",debit:0,credit:0});}
+  
+
+
+
 
 
    $scope.totalAjeDr = function(){
@@ -40,7 +50,7 @@ $scope.clearAje = function()
     return (total) }   
 
 
-$scope.totalAjeDr = function(){
+  $scope.totalAjeDr = function(){
     var total = 0 
     for(ctr=0;ctr<$scope.aje.length;ctr++)
     { total += parseFloat($scope.aje[ctr].debit) || 0}
