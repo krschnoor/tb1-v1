@@ -68,10 +68,10 @@ addAccount(collection,{name:"Licenses & Permits",category:'Expense',class:"Gener
 addAccount(collection,{name:"Other Taxes",category:'Expense',class:"GeneralExpenses",subtype:"Other Taxes", csort:4, ssort:12,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
 addAccount(collection,{name:"Depreciation",category:'Expense',class:"GeneralExpenses",subtype:"Depreciation", csort:4, ssort:13,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
 addAccount(collection,{name:"Employee Benefits - General",category:'Expense',class:"GeneralExpenses",subtype:"Employee Benefits", csort:4, ssort:14,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
-addAccount(collection,{name:"Other Income",category:'Revenue',class:"OtherIncome",subtype:"Other Income", csort:5, ssort:1,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
-addAccount(collection,{name:"Other Expense",category:'Expense',class:"OtherExpense",subtype:"Other Expense", csort:6, ssort:1,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
-addAccount(collection,{name:"Interest Expense",category:'Expense',class:"OtherExpense",subtype:"Interest Expense", csort:6, ssort:2,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
-addAccount(collection,{name:"Income Taxes",category:'Expense',class:"OtherExpense",subtype:"Income Tax", csort:6, ssort:3,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
+addAccount(collection,{name:"Other Income",category:'OtherIncome',class:"OtherIncome",subtype:"Other Income", csort:5, ssort:1,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
+addAccount(collection,{name:"Other Expense",category:'OtherExpense',class:"OtherExpense",subtype:"Other Expense", csort:6, ssort:1,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
+addAccount(collection,{name:"Interest Expense",category:'OtherExpense',class:"OtherExpense",subtype:"Interest Expense", csort:6, ssort:2,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
+addAccount(collection,{name:"Income Taxes",category:'OtherExpense',class:"OtherExpense",subtype:"Income Tax", csort:6, ssort:3,fs:2,balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]})     
 
 
  }) 

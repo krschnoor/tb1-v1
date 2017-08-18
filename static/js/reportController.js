@@ -16,7 +16,7 @@ setReports = function($scope){
          if(acct.category=='Asset'){
          adjBal +=  parseFloat(entriesArr[ctr].debit) || 0 ; 
          adjBal -= parseFloat(entriesArr[ctr].credit) || 0;}
-         else if (acct.category == 'Expense' || acct.category=='CostOfGoodsSold'){
+         else if (acct.category == 'Expense' || acct.category=='CostOfGoodsSold' || acct.category=='OtherExpense' ){
          adjBal +=  parseFloat(entriesArr[ctr].debit) || 0 ; 
          adjBal -= parseFloat(entriesArr[ctr].credit) || 0;}
          else {
@@ -50,7 +50,7 @@ $scope.getSubTotalsAdj = function(type){
         
           for(var ctr2=0;ctr2<entriesArr.length;ctr2++){
 
-            if(filtered[ctr].category=='Asset' || filtered[ctr].category=='Expense' || filtered[ctr].category=='CostOfGoodsSold' ){
+            if(filtered[ctr].category=='Asset' || filtered[ctr].category=='Expense' || filtered[ctr].category=='CostOfGoodsSold' || filtered[ctr].category=="OtherExpense"){
              adjBal +=  parseFloat(entriesArr[ctr2].debit) || 0 ; 
              adjBal -= parseFloat(entriesArr[ctr2].credit) || 0;}
             else{
@@ -294,7 +294,7 @@ $scope.getTotalsAdj = function(category){
         
           for(var ctr2=0;ctr2<entriesArr.length;ctr2++){
 
-            if(filtered[ctr].category=="Asset" || filtered[ctr].category=="Expense" || filtered[ctr].category=="CostOfGoodsSold"){
+            if(filtered[ctr].category=="Asset" || filtered[ctr].category=="Expense" || filtered[ctr].category=="CostOfGoodsSold" || filtered[ctr].category=="OtherExpense"){
               
              adjBal +=  parseFloat(entriesArr[ctr2].debit) || 0 ; 
              adjBal -= parseFloat(entriesArr[ctr2].credit) || 0;}
@@ -327,7 +327,7 @@ $scope.getTotalsAdj = function(category){
         
           for(var ctr2=0;ctr2<entriesArr.length;ctr2++){
            
-             if(account.category=="Asset" || account.category=="Expense" || account.category=="CostOfGoodsSold"){
+             if(account.category=="Asset" || account.category=="Expense" || account.category=="CostOfGoodsSold" || account.category=="OtherExpense"){
               totalAdjustments += parseFloat(entriesArr[ctr2].debit) || 0;
               totalAdjustments -= parseFloat(entriesArr[ctr2].credit) || 0;}
               else{
@@ -360,7 +360,7 @@ $scope.getTotalsPyAll = function(){
          
          
         if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold" || $scope.accounts[ctr].category=="OtherExpense"){
              totAdj += adjBal;
               adjBal = 0;}
         else{totAdj -= adjBal;
@@ -389,7 +389,7 @@ $scope.getTotalsUnadjAll = function(){
          
          
         if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold" || $scope.accounts[ctr].category=="OtherExpense"){
              totAdj += adjBal;
               adjBal = 0;}
         else{totAdj -= adjBal;
@@ -418,7 +418,7 @@ $scope.getTotalsEntriesAll = function(){
           for(var ctr2=0;ctr2<entriesArr.length;ctr2++){
 
             if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold" || $scope.accounts[ctr].category=="OtherExpense"){
               
              adjBal +=  parseFloat(entriesArr[ctr2].debit) || 0 ; 
              adjBal -= parseFloat(entriesArr[ctr2].credit) || 0;}
@@ -431,7 +431,7 @@ $scope.getTotalsEntriesAll = function(){
           
                   
         if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold" || $scope.accounts[ctr].category=="OtherExpense"){
               totAdj += adjBal;
               adjBal = 0;}
         else{totAdj -= adjBal;
@@ -464,7 +464,7 @@ $scope.getTotalsEntriesAll = function(){
           for(var ctr2=0;ctr2<entriesArr.length;ctr2++){
 
             if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold"  || $scope.accounts[ctr].category=="OtherExpense" ){
               
              adjBal +=  parseFloat(entriesArr[ctr2].debit) || 0 ; 
              adjBal -= parseFloat(entriesArr[ctr2].credit) || 0;}
@@ -481,7 +481,7 @@ $scope.getTotalsEntriesAll = function(){
          
          
         if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=="Expense" ||
-             $scope.accounts[ctr].category=="CostOfGoodsSold"){
+             $scope.accounts[ctr].category=="CostOfGoodsSold" || $scope.accounts[ctr].category=="OtherExpense"){
              totAdj += adjBal;
               adjBal = 0;}
         else{totAdj -= adjBal;
