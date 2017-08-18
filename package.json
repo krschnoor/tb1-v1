@@ -1,0 +1,30 @@
+{
+  "name": "tb1-v1-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "TBroutes.js",
+  "dependencies": {
+    "body-parser": "^1.0.2",
+    "ejs": "^1.0.0",
+    "express": "^4.0.0",
+    "mongodb": "^1.4.2",
+    "mongoose": "^3.8.8",
+    "angular-route": "^1.6.4",
+    "angular-ui-router": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krschnoor/tb1-v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krschnoor/tb1-v1/issues"
+  },
+  "homepage": "https://github.com/krschnoor/tb1-v1#readme"
+}

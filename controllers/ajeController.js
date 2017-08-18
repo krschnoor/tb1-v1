@@ -7,9 +7,11 @@ MongoClient.connect("mongodb://127.0.0.1:27017/" , function(err,db){
  
  var mydb = db.db(req.body.client)
 
+ 
  var ajeObj = {aje:[]}
 
  ajeObj.aje = req.body.entry
+
 
  var collection = mydb.collection('entries');
 
@@ -17,7 +19,7 @@ MongoClient.connect("mongodb://127.0.0.1:27017/" , function(err,db){
 
  collection.insert(ajeObj,function(err,result){
            if(!err){
-              
+            
              console.log("inserted 2" + result[0].aje[0].accountID)
              for(var ctr = 0;ctr<result.length;ctr++){
                for(var ctr2=0;ctr2<result[ctr].aje.length;ctr2++)
