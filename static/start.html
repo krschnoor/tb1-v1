@@ -6,9 +6,14 @@
      <div class="panel panel-primary">
       <div class="panel-heading">Client Information &nbsp;<span class="glyphicon glyphicon-home" /></div>
        <div class="panel-body">
-       <h4>Client Name:</h4><p ng-model="openclient[0].name"><strong class="text-primary text-large"><h3>{{openclient[0].name}}</h3></strong></p>
-       <h4>Fiscal Year End:</h4><p ng-model="currentfye"><strong class="text-primary text-large"><h3>{{currentfye | date: 'MM-dd-yyyy'}}</h3> </strong></p>
-       </div>
+       <h4 style="display:inline" >Client Name:</h4>
+       <p style="display:inline" ng-model="openclient[0].name"><strong  class="text-primary text-large"><h3 style="padding-left:10px;display:inline" ng-show="currentfye" style="padding-left:10px;display:inline" >{{openclient[0].name}}</h3></strong></p>
+       <p style="display:inline" ng-model="openclient[0].name"><strong  class="text-primary text-large"><h3 style="padding-left:10px;display:inline" ng-show="!currentfye" style="padding-left:10px;display:inline" >No Client Selected</h3></strong></p>
+       <h4 style="display:inline">Fiscal Year End:</h4>
+       <p  style="display:inline" ng-model="currentfye"><strong class="text-primary text-large"><h3 style="padding-left:10px;display:inline" ng-show="currentfye">{{currentfye | date: 'MM-dd-yyyy'}}</h3> </strong></p>
+       <p  style="display:inline" ng-model="currentfye"><strong class="text-primary text-large"><h3 style="padding-left:10px;display:inline" ng-show="!currentfye">N/A</h3> </strong></p>
+      
+     </div>
      </div>
    </div>
    <span>{{ajeList[0]}}</span>

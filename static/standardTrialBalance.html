@@ -51,8 +51,8 @@
          <table ng-show="showDetail==true">
          <tr ng-repeat="entry in ajeList  | filter :  {accountID: account._id } | filter :  {tbdate: currentfye } " >
          <td class="ajeedit" ng-click="getAje(openclient[0].name,entry.ajeid)" width='100' align='right'>
-         <span ng-if='entry.debit !=0 '>Dr: &nbsp;{{entry.debit | number:2}}</span>
-         <span ng-if='entry.credit !=0 '>Cr: &nbsp;{{entry.credit | number:2}}</span>
+         <span style="display:block" ng-if="entry.debit != 0.00 && entry.debit !=' '">Dr: &nbsp;{{entry.debit | number:2}}</span>
+         <span style="display:block" ng-if="entry.credit != 0.00 && entry.credit !=' '" >Cr: &nbsp;{{entry.credit | number:2}}</span>
          </td>
          </tr>
          </table>
