@@ -52,14 +52,17 @@
          </select>
 
 
-         <select class="col-sm-6"   ng-required="true"  ng-show="category=='Expense' || category=='CostOfGoodsSold' " ng-model="cls" name="AccountClass1">
-         <option value="CostOfGoodsSold">Cost of Goods Sold &nbsp; &nbsp;</option>
+         <select class="col-sm-6"   ng-required="true"  ng-show="category=='Expense'" ng-model="cls" name="AccountClass1">
          <option value="SellingExpenses">Selling Expense &nbsp; &nbsp;</option>
          <option value="GeneralExpenses">General Expense &nbsp; &nbsp;</option>
          </select>
     
+         <select class="col-sm-6"   ng-required="true"  ng-show="category=='CostOfGoodsSold' " ng-model="cls" name="AccountClass1">
+          <option value="CostOfGoodsSold">Cost of Goods Sold &nbsp; &nbsp;</option>
+         </select>
+
         <select class="col-sm-6"   ng-required="true"  ng-show="category=='OtherExpense'" ng-model="cls" name="AccountClass1">
-       <option value="OtherExpense">Other Expense &nbsp; &nbsp;</option>
+        <option value="OtherExpense">Other Expense &nbsp; &nbsp;</option>
         </select>
 
 

@@ -74,7 +74,7 @@
          </tr>
           
          <tr><td colspan="6"><h4 class="bg-info text-white px-2 py-2">Fixed Assets</h4></td>
-         <tr ng-if="isCurrentAccount(account) && isActiveAccount(account)" ng-repeat="account in accounts |  filter : {'class' : 'FixedAsset'} | orderBy : 'ssort'  ">
+         <tr ng-if="isCurrentAccount(account) && isActiveAccount(account)" ng-repeat="account in accounts |  filter : {class : 'FixedAsset'}  | orderBy : 'ssort'  ">
          <td >{{account.name}}</td>
           <td >
          <table  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  

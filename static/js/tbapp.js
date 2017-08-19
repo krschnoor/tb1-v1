@@ -1,55 +1,6 @@
 var app = angular.module('TrialBalance',[])
 
 
-app.directive('focus', function() {
-  return {
-    restrict: 'A',
-    link: function($scope,elem,attrs) {
-    
-      elem.bind('keydown', function(e) {
-        var code = e.keyCode || e.which;
-        if (code === 13) {
-          e.preventDefault();
-          elem.parent("td").next().find("input").focus(); 
-        }
-      });
-    }
-  }
-});
-
-
-
-
-app.directive('nextrow', function () {
-    return {
-        restrict: 'A',
-        link: function ($scope, selem, attrs) {
-            selem.bind('keydown', function (e) {
-                var code = e.keyCode || e.which;
-                if (code === 13) {
-                    e.preventDefault();
-                    var pageElems = angular.element(document).find('input,select')
-                    elem = $scope.clickedElement
-                    focusNext = false,
-                     len = pageElems.length; 
-                        
-                    for (var i = 0; i < len; i++) { 
-                        
-                        if (focusNext) {
-                            
-                                pageElems[i].focus()
-                                break;
-                            
-                        } else if (pageElems[i].id == elem) {
-                            focusNext = true;
-                        }  
-                    } 
-                } 
-            });
-        }
-    }
-})
-
 
 
 app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService','chartservice',
@@ -69,7 +20,7 @@ function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservic
   
   setJournalEntry($scope)
   setReports($scope)
-
+  setChart($scope)
 
 
   $scope.postAjeEdit = function(){
@@ -122,145 +73,26 @@ $scope.printToCart = function(printSectionId) {
 
    $scope.addAccount = function(cat,cls,sub,ssort,name){
    
-   var csort, fs;
-   
+    chartservice.addAccount($scope,cat,cls,sub,ssort,name).then(function(){
 
-    if(cls=='CurrentAsset'){
-      csort = 1;
-      fs = 1 }
+    alert("Account " + name + " Created Successfully.")
 
-    else if(cls=='FixedAsset'){
-      csort = 2;
-      fs = 1
-    }
-
-   else if(cls=='Other Assets'){
-      csort = 3;
-      fs = 1
-    }
-
-   else if(cls=='CurrentLiability'){
-      csort = 4;
-      fs = 1
-    }
-
-    else if(cls=='LongTermLiability'){
-      csort = 5;
-      fs = 1
-    }
-
-    else if(cls=='Equity'){
-      csort = 6;
-      fs = 1
-    }
-
-   else if(cls=='Sales'){
-      csort = 1;
-      fs = 2
-    }
-
-  else if(cls=='Fees'){
-      csort = 1;
-      fs = 2
-    }
-
-  else if(cls=='CostOfGoodsSold'){
-      csort = 2;
-      fs = 2
-    }
-
-  else if(cls=='SellingExpenses'){
-      csort = 3;
-      fs = 2
-    }
-
-
- else if(cls=='GeneralExpenses'){
-      csort = 4;
-      fs = 2
-    }
-
-  else if(cls=='OtherIncome'){
-      csort = 5;
-      fs = 2
-    }
-
-  else if(cls=='OtherExpense'){
-      csort = 6;
-      fs = 2
-    }
-
-
-
-    var tbday = $scope.currenttbday;
-    var tbmonth = $scope.currenttbmonth;
-    var tbyear = $scope.currenttbyear;
-
-
-
-
-    var acct = {
-              name:name,
-              category:cat,
-              class: cls,
-              subtype:sub, 
-              csort: parseInt(csort),
-              ssort: parseInt(ssort),
-              fs:fs, 
-              balances:[{tbmonth:tbmonth,tbday:tbday,tbyear:tbyear,active:true,pybal:0,unadjbal:0,entries:[],adjbal:0}]
-              }
-
-        
-   $http.post('/newAccount/',{account:acct,client:$scope.openclient[0].name})
-   .success(function(data,status,headers,config){
-   alert("Account " + name + " Created Successfully.")
-   $scope.accounts.push(data[0]);
-   $scope.setContent('start.html');
    })
   
-   
-  
-}
+   }
 
 
-//will put in chart service
- $scope.getChartBegBalances = function(){
- 
-  var totUnadj = 0
- 
-   for(var ctr = 0;ctr<$scope.accounts.length;ctr++){
-
-   var balArr = $scope.accounts[ctr].balances.filter(function(balance){ return ((balance.tbyear == $scope.currenttbyear) &&  (balance.tbday == $scope.currenttbday) 
-     && (balance.tbmonth == $scope.currenttbmonth)) })
- 
-     if($scope.accounts[ctr].category=="Asset" || $scope.accounts[ctr].category=='Expense' || $scope.accounts[ctr].category=='CostOfGoodsSold'  || $scope.accounts[ctr].category=='OtherExpense'){
-         if( balArr=='' || balArr==null || balArr==undefined){
-           totUnadj +=0;}
-         else{ totUnadj += balArr[0].unadjbal}
-      }
-     
-     else{
-    
-      if( balArr=='' || balArr==null || balArr==undefined){
-         totUnadj ==0;}
-      else{ totUnadj -= balArr[0].unadjbal}
-     }
-   
-  }
-
-  return parseFloat(totUnadj) || 0
-
-}
 
 //will put in chartservice
-$scope.postChart = function(){
+ $scope.postChart = function(){
 
   
-  $http.post('/adjBalances/',{accounts:$scope.accounts,client:$scope.openclient[0].name})
-   .success(function(data,status,headers,config){
+   chartservice.postChart($scope).then(function(){
+  
+    $scope.setContent('start.html')
+
+   })
    
-   $scope.setContent('start.html')})
-   $scope.setContent('start.html')
 
   }
 
@@ -292,7 +124,7 @@ $scope.postChart = function(){
       setReports($scope)
      }
  
- 
+
      $scope.content = '/static/' +   page
   }
 
