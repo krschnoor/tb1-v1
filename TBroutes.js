@@ -26,6 +26,7 @@ app.post('/newEntry',entry.addEntry);
 app.post('/newEntryEdit',entry.addEntryEdit);
 app.get('/ajes/get',entry.getAjes);
 app.get('/aje/get',entry.getAje);
+app.get('/getAjeReport/',entry.getAjeReport);
 
 }
 

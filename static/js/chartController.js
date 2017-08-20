@@ -2,6 +2,8 @@ setChart= function($scope){
 
   $scope.getChartBegBalances = function(){
     
+    if($scope.openclient){
+
      var totUnadj = 0
     
       for(var ctr = 0;ctr<$scope.accounts.length;ctr++){
@@ -19,13 +21,13 @@ setChart= function($scope){
        
          if( balArr=='' || balArr==null || balArr==undefined){
             totUnadj ==0;}
-         else{ totUnadj -= balArr[0].unadjbal}
+         else{ totUnadj -= parseFloat(balArr[0].unadjbal) || 0}
         }
       
      }
-   
+     
      return parseFloat(totUnadj) || 0
    
-   }
+   }}
 
 }

@@ -87,5 +87,23 @@ $scope.clearAje = function()
     { total += parseFloat($scope.ajeEdit[ctr].credit) || 0}
     return (total) }   
 
+  
+    $scope.getAjeAccount = function(id){
+
+      var account =  $scope.accounts.filter(function(account){ return (account._id ==id) })
+
+      return account[0].name
+
+
+    }
+
+    $scope.getAJEDate = function(aje){
+      
+       
+     return aje.aje[0].tbdate == $scope.currentfye
+      
+      
+     }
+
 
 }

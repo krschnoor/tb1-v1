@@ -17,7 +17,9 @@ function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservic
   $scope.ajeEdit ;
   $scope.content;
   $scope.activeAccounts;
-  
+  $scope.ajeReportList;
+
+
   setJournalEntry($scope)
   setReports($scope)
   setChart($scope)
@@ -123,7 +125,12 @@ $scope.printToCart = function(printSectionId) {
       || page=='standardTrialBalance.html'){
       setReports($scope)
      }
- 
+      if(page=='ajeReport.html'){
+       ajeservice.getAjeReport($scope).then(function(){
+       $scope.content = '/static/' +   page 
+       return})   
+       }
+        
 
      $scope.content = '/static/' +   page
   }

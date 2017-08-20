@@ -8,7 +8,7 @@
       <thead>
        <tr>
         <th >Client Name</th>
-        <th>&nbsp;&nbsp;&nbsp;&nbsp;Fiscal Year</th>
+        <th>&nbsp;&nbsp;&nbsp;&nbsp;New Fiscal Year</th>
         <th>Close</th>
        </tr>
       </thead>
@@ -16,7 +16,7 @@
         <tr>
         <td><span   ng-model="openclient[0].name">{{openclient[0].name}} &nbsp;{{currentfye | date: mm-dd-yyyy}}</span></td>
         <td>
-         <div class="form-group form-group-sm col-xs-5" ng-class="{'has-error' :closeYearform.fye.$invalid && closeYearForm.fye.$dirty}">
+         <div class="form-group form-group-sm col-sm-7" ng-class="{'has-error' :closeYearform.fye.$invalid && closeYearForm.fye.$dirty}">
          <input name="fye" ng-required="true" ng-model="nextfye" type="date" class="form-control" id="fye" placeholder="Enter Fiscal Year End ">
          </div> 
         </td>
@@ -26,7 +26,7 @@
         </tr>
         <tr>
          <td colspan="5"><span class="error-message" ng-if="closeYearForm.fye.$dirty &&  (closeYearForm.fye.$error.required || nextfye <= currentfye)">
-             Fiscal Year is Required and Must be After Current Fiscal Year End</span>
+             Fiscal Year is Required and Must be After Current Fiscal Year End.</span>
          </td>
          </tr>
        </tbody>

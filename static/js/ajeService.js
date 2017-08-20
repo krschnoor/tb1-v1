@@ -79,4 +79,20 @@ this.postAjeEdit = function(scope){
 
 }
 
+
+this.getAjeReport = function(scope){
+  
+var deferred = $q.defer()
+  $http.get('/getAjeReport/',{params:{client:scope.openclient[0].name}})
+  .success(function(data,status,headers,config){
+    console.log(data)
+    scope.ajeReportList = data
+    deferred.resolve()
+   })
+
+ return deferred.promise
+
+}
+
+
 })

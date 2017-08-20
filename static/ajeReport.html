@@ -1,0 +1,41 @@
+<div style="font-size:smaller;margin-top:-20px;width: 100%; height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container container-fluid col-sm-12" autoscroll="true">
+    <div class="panel-group">
+     <div class="panel panel-primary">
+       <div class="panel-heading">
+         <h3>Aje List: &nbsp;
+         <span ng-model="currentfye" >{{currentfye | date: mmm-dd-yyyy}} </span>
+         </h3>
+         </div>
+        <div class="panel-body">
+         <span ng-model="openclient" >{{openclient[0].name}}</span> <br/>
+         <table class="table table-responsive" style="border-collapse:collapse" >
+         <tr style="background-color:#000;color:#fff">
+          <td>
+          <table width="85%">
+          <tr>
+          <td align="left" width="35%"><strong>Account</strong></td>
+          <td align="left" width="22%">Description</td>
+          <td  align="right" width="18%">Debit</td> 
+          <td align="right" width="18%">Credit</td>
+          <td align="right" width="6%">-</td>
+          </tr>
+          </table>
+          </td>
+          </tr>
+          <tr  ng-show="$parent.getAJEDate(entry)"  ng-repeat="entry in $parent.ajeReportList"   >
+           <td>
+           <table width="85%">
+             <tr class="ajeedit" ng-click="getAje(openclient[0].name,aje.ajeid)"  ng-repeat="aje in entry.aje  |  filter :  {tbdate: $parent.currentfye } ">
+             <td align="left" width="35%">{{$parent.getAjeAccount(aje.accountID)}}
+             <td align="left" width="22%">{{aje.desc}}</td>
+             <td align="right" width="18%">{{aje.debit | number:2}}</td>
+             <td align="right" width="18%">{{aje.credit | number:2}}</td>
+             <td align="right" width="6%"><span class="glyphicon glyphicon-trash"></span></td>
+            </tr>
+            </table>
+            </td>
+           </tr>
+         </table>
+        </div>
+     </div>
+    </div>

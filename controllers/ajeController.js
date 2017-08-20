@@ -142,8 +142,27 @@ exports.getAje = function(req,res){
  }           
  
   
- })
+})
 
+}
+
+
+exports.getAjeReport = function(req,res){
+  
+  MongoClient.connect("mongodb://127.0.0.1:27017/" , function(err,db){
+  
+  var mydb = db.db(req.query.client)
+  var collection = mydb.collection('entries');
+ 
+  
+  collection.find().toArray(function(err, ajes) {
+         if(!err){
+         res.json(200,ajes)
+         console.log(ajes) //ajes comes here.
+         db.close()}
+     });    
+  })
+ 
 }
 
 
