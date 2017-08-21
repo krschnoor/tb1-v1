@@ -82,7 +82,7 @@ this.postAjeEdit = function(scope){
 
 this.getAjeReport = function(scope){
   
-var deferred = $q.defer()
+ var deferred = $q.defer()
   $http.get('/getAjeReport/',{params:{client:scope.openclient[0].name}})
   .success(function(data,status,headers,config){
     console.log(data)
@@ -90,9 +90,24 @@ var deferred = $q.defer()
     deferred.resolve()
    })
 
- return deferred.promise
+  return deferred.promise
 
-}
+ }
+
+
+this.deleteAje = function(scope,id){
+  
+ var deferred = $q.defer()
+  $http.post('/deleteEntry/',{client:scope.openclient[0].name,id:id})
+  .success(function(data,status,headers,config){
+    console.log(data)
+    deferred.resolve()
+   })
+
+  return deferred.promise
+
+ }
+
 
 
 })

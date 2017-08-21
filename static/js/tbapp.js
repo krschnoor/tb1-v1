@@ -3,8 +3,8 @@ var app = angular.module('TrialBalance',[])
 
 
 
-app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService','chartservice',
-function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservice){
+app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService','chartservice','$window',
+function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservice,$window){
 
   $scope.accounts;
   $scope.currentAccount;
@@ -39,6 +39,23 @@ function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservic
 
   }
     
+ $scope.deleteAje =  function(id){
+
+  if ($window.confirm("Do You Want to Delete Journal Entry?")) {
+        ajeservice.deleteAje($scope,id).then(function(){
+          ajeservice.getAjes($scope,$scope.openclient[0].name).then(function(){
+             ajeservice.getAjeReport($scope).then(function(){
+              alert("Journal Entry " + id  + " Deleted")
+              $scope.setContent('start.html')
+            })
+          });
+        })
+  }
+  else {return false;}
+
+  }
+
+
 
   $scope.inactivateAccount = function(account,balance) {
   
@@ -118,7 +135,7 @@ $scope.printToCart = function(printSectionId) {
   $scope.setContent = function(page){ 
      
      if(page=='aje.html' || page =='ajeedit.html'){
-       setJournalEntry($scope)
+       setJournalEntry($scope,$http)
        $scope.getActiveAccounts($scope)
       }
      if(page=='classBalanceSheet.html' || page=='classIncomeStatement.html'
@@ -227,6 +244,7 @@ $scope.printToCart = function(printSectionId) {
 
    if($scope.closeYearForm.$valid){
   
+    if ($window.confirm("Do You Want to Close Period? This Process Cannot be Reversed.")) {
      var d = new Date(newfye);
      var m = d.getMonth() + 1; 
      var dy = d.getDate() + 1 
@@ -247,8 +265,8 @@ $scope.printToCart = function(printSectionId) {
      })
 
     
- 
-   }
+    } 
+  }
 
  }
 

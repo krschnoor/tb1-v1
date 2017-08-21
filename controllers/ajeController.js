@@ -166,4 +166,23 @@ exports.getAjeReport = function(req,res){
 }
 
 
-
+exports.deleteAje= function(req,res){
+  
+  MongoClient.connect("mongodb://127.0.0.1:27017/" , function(err,db){
+  
+  var mydb = db.db(req.body.client)
+  var collection = mydb.collection('entries');
+  var id = require('mongodb').ObjectID(req.body.id)
+ 
+  collection.remove({'_id' : id}, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else{
+            console.log(result);
+            res.json(200,{})
+            mydb.close();}
+        });
+  })
+ 
+}

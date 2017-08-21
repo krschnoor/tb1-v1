@@ -25,12 +25,12 @@
           <tr  ng-show="$parent.getAJEDate(entry)"  ng-repeat="entry in $parent.ajeReportList"   >
            <td>
            <table width="85%">
-             <tr class="ajeedit" ng-click="getAje(openclient[0].name,aje.ajeid)"  ng-repeat="aje in entry.aje  |  filter :  {tbdate: $parent.currentfye } ">
-             <td align="left" width="35%">{{$parent.getAjeAccount(aje.accountID)}}
-             <td align="left" width="22%">{{aje.desc}}</td>
-             <td align="right" width="18%">{{aje.debit | number:2}}</td>
-             <td align="right" width="18%">{{aje.credit | number:2}}</td>
-             <td align="right" width="6%"><span class="glyphicon glyphicon-trash"></span></td>
+             <tr class="ajeedit"  ng-repeat="aje in entry.aje  |  filter :  {tbdate: $parent.currentfye } ">
+             <td ng-click="getAje(openclient[0].name,aje.ajeid)" align="left" width="35%">{{$parent.getAjeAccount(aje.accountID)}}
+             <td ng-click="getAje(openclient[0].name,aje.ajeid)" align="left" width="22%">{{aje.desc}}</td>
+             <td ng-click="getAje(openclient[0].name,aje.ajeid)" align="right" width="18%">{{aje.debit | number:2}}</td>
+             <td ng-click="getAje(openclient[0].name,aje.ajeid)" align="right" width="18%">{{aje.credit | number:2}}</td>
+             <td ng-click="deleteAje(aje.ajeid)" align="right" width="6%"><span  role="button" class="glyphicon glyphicon-trash"></span></td>
             </tr>
             </table>
             </td>
