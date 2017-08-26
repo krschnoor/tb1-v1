@@ -31,6 +31,7 @@
            <td width="20%">{{account.class}}</td>
            <td width="20%">{{account.subtype}}</td>
            
+           <ng-form name="chartSubForm">
            <td width="11%"><input name="ssort" required ng-required="true" focus class="text-right col-lg-9" type="number" ng-model="account.ssort"  /></td>
           
            <td  width="29%"  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  

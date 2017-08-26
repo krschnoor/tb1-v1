@@ -46,6 +46,8 @@ div.tab button.active {
 .ajedelete{cursor:pointer}
 
 .error-message {border: red thin solid; color:red}
+.error-message2 {border: red thin solid; }
+
 
 @media print
 {
@@ -93,7 +95,11 @@ div.tab button.active {
           <li ng-click="setContent('closeYear.html')"><a href="#">Close Fiscal Year</a></li>
         </ul>
       </li>
-      <li><a href="#">Page 3</a></li>
+      <li ng-class="{disabled: (!currentfye || getChartBegBalances() !=0)}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Import<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li ng-click="setContent('qbSetUp.html')"><a  href="#">QuickBooks Desktop</a></li>
+       </ul>
+      </li>
     </ul>
   </div>
 </nav>
@@ -163,8 +169,15 @@ div.tab button.active {
 
 
 </div>
+<div ng-if="content=='/static/qbImport.html'" >
+  <p   ng-include src="'/static/qbImport.html'" ></p>
+</div>
+<div ng-if="content=='/static/qbSetUp.html'" >
+  <p   ng-include src="'/static/qbSetUp.html'" ></p>
+</div>
 
 
+</div>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -180,9 +193,12 @@ div.tab button.active {
 <script src="/static/js/tbapp.js"></script> 
 <script src="/static/js/chartController.js"></script>
 <script src="/static/js/ajeService.js"></script> 
-<script src="/static/js/closeYearService.js"></script> 
+<script src="/static/js/closeYearService.js"></script>
+<script src="/static/js/QBService.js"></script>
 <script src="/static/js/chartService.js"></script>
 <script src="/static/js/ajeController.js"></script> 
 <script src="/static/js/reportController.js"></script>
 <script src="/static/js/directives.js"></script>
+
+
 </body>

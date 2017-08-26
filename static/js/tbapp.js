@@ -4,7 +4,7 @@ var app = angular.module('TrialBalance',[])
 
 
 app.controller('TBcontroller', ['$scope','$http','$location','$timeout','ajeservice','closeYearService','chartservice','$window',
-function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservice,$window){
+'QuickBooksService',function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservice,$window,QuickBooksService){
 
   $scope.accounts;
   $scope.currentAccount;
@@ -18,7 +18,7 @@ function($scope,$http,$location,$timeout,ajeservice,closeYearService,chartservic
   $scope.content;
   $scope.activeAccounts;
   $scope.ajeReportList;
-
+  $scope.QBAccounts;
 
   setJournalEntry($scope)
   setReports($scope)
@@ -271,8 +271,61 @@ $scope.printToCart = function(printSectionId) {
  }
 
 
+//should go in qb controller
+
+ $scope.getQuickBooksReport= function() {
+  
+
+  
+    $http.get("http://10.1.2.68:50033/webform1.aspx?id=7").success(function  (data,status,headers,config){
+   
+                 
+          $scope.QBAccounts = data.QBXML.QBXMLMsgsRs.AccountQueryRs.AccountRet //.QBXMLMsgsRs.AccountRet;
+
+          QuickBooksService.filterDeskTopAccounts($scope,$scope.QBAccounts).then(function(){
+        
+          console.log($scope.QBAccounts)
+
+          $scope.setContent('qbImport.html')
+         
+
+          })       
+        
+                 
+    }).error(function(data,status,headers,config){  })
+
+
  
+
+   }
+
  
+// should go in qb controller
+
+
+  $scope.postQbAccounts= function() {
+  
+
+      QuickBooksService.postQBAccounts($scope,$scope.QBAccounts).then(function(){
+        
+              
+       chartservice.getActiveAccounts().then(function(){
+       
+        $scope.setContent('start.html')
+
+       })  
+
+       })       
+        
+                 
+     
+
+   }
+
+
+
+
+
 
 }])
    

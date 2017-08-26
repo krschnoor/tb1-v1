@@ -1,0 +1,25 @@
+<div style="font-size:x-small;margin-top:-20px; height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container container-fluid col-sm-7" autoscroll="true">
+   <div class="panel-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3>Import QuickBooks</h3>
+        <span ng-model="currentfye" >{{currentfye | date: mmm-dd-yyyy}} </span>
+        <span ng-model="openclient" >{{openclient[0].name}}</span> <br/>
+        </h3>
+      </div>
+      <div class="panel-body ">
+       <h6>Use this page to import QuickBooks Chart of Accounts. Follow the step by step instructions below.</h6>
+        <ul>
+            <li>Make sure to have the QuickBooks WebConnector Installed. Make sure all QuickBooks are closed and to run as Admin.&nbsp;<a href="javascript: window.open('https://developer.intuit.com/docs/0200_quickbooks_desktop/0100_essentials/quickbooks_web_connector')">Install.</a></li>
+            <li>Open your QuickBooks File.</li>
+            <li>Click here to launch the WebConnector.&nbsp;<a href="/static/QuickBooks/sample2.qwc">Launch WebConnector</a></li>
+            <li>Select the Trial Balance Express App and then click Update Selected.</li>
+            <li>Once the request is 100% complete click here to import the Chart of Accounts from QuickBooks. &nbsp;<a ng-click="getQuickBooksReport()" href="#">Import</a></li>
+        </ul>
+
+         <button style="margin:8px" type="submit" class='btn btn-prmimary' ng-disabled="chartForm.$invalid || getChartBegBalances()!=0 || chartForm.$pristine">Update</button>
+      </div>
+      
+    </div> 
+   </div>
+ </div>

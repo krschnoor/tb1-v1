@@ -1,0 +1,240 @@
+    <div style="font-size:smaller;margin-top:-20px; height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container  col-xs-9" autoscroll="true">
+    <div class="panel-group">
+     <div class="panel panel-primary">
+       <div class="panel-heading">
+         <h3>Aje List: &nbsp;
+         <span ng-model="currentfye" >{{currentfye | date: mmm-dd-yyyy}} </span>
+         </h3>
+       </div>
+        <div class="panel-body">
+        <form name="qbImportForm" ng-submit="$parent.postQbAccounts();" novalidate>
+�       <div class="form-group col-xs-11" >
+         <span ng-model="openclient" >{{openclient[0].name}}</span> 
+          <br/>
+          <span><button   style="margin-top:10px;margin-bottom:10px" type="submit" class='btn btn-prmimary' ng-disabled="qbImportForm.$invalid || !qbImportForm.$pristine || $parent.QBAccounts.length==0">Post Accounts</button></span>
+          <table  width="10%" class="table table-bordered table-condensed table-fixed">
+          <tr style="background-color:#000;color:#fff">
+          
+          <td width="360" align="left">QB Account</strong></td>
+          <td width="50" align="left">QB Account Type</td>
+          <td  width="50" align="left">TB Category</td> 
+          <td width="50" align="left">TB Class</td>
+          <td width="50" align="left">TB Sub Type</td>
+         
+          </tr>
+         <tr  ng-repeat="account in $parent.QBAccounts"  ng-init="selected=true" >
+          <h4 ng-if="$parent.QBAccounts.length==0">No New QuickBooks Accounts to Import</h4>
+          <td   align="left" >{{account.FullName}}</td>
+          <td   align="left">{{account.AccountType}}</td>
+          <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset' || account.AccountType=='FixedAsset' || account.AccountType=='AccountsReceivable'"  align="left">
+           
+          <select style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="Asset">Asset</Option>
+          </select>
+          
+          </td>
+          <td ng-show="account.AccountType=='OtherCurrentLiability' || account.AccountType=='AccountsPayable' || account.AccountType=='LongTermLiability' || account.AccountType=='CreditCard'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="Liability">Liability</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='Equity'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="Equity">Equity</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='Income'"  align="left">
+          <select style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="Revenue">Revenue</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='Expense'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="Expense">Expense</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='CostOfGoodsSold'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="CostOfGoodsSold">CostOfGoodsSold</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='OtherIncome'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="OtherIncome">Other Income</option>
+          </select>
+           <td ng-show="account.AccountType=='OtherExpense'"  align="left">
+          <select style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="OtherExpense">Other Expense</option>
+          </select>
+          </td>
+          <td ng-show="account.AccountType=='NonPosting'"  align="left">
+          <select style="width:120px;text-align:left" ng-model="account.category" >
+          <option ng-selected="selected" value="OtherExpense">Other Expense</option>
+          </select>
+          </td>
+           <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset'|| account.AccountType=='AccountsReceivable'"  align="left">
+           <select style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="CurrentAsset">Current Asset</option>
+           </select>
+          </td>
+           <td ng-show="account.AccountType=='FixedAsset'"  align="left">
+           <select  style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="FixedAsset">Fixed Asset</option>
+           </select>           
+          </td>
+           <td ng-show="account.AccountType=='OtherCurrentLiability' || account.AccountType=='AccountsPayable' || account.AccountType=='CreditCard'"  align="left">
+           <select  style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="CurrentLiability">CurrentLiability</option>
+           </select>           
+           </td>
+           <td ng-show="account.AccountType=='LongTermLiability' "  align="left">
+           <select   style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="LongTermLiability">Long Term Liability</option>
+           </select>           
+           </td>
+           <td ng-show="account.AccountType=='Equity' "  align="left">
+           <select  style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="Equity">Equity</option>
+           </select>           
+           </td>
+            <td ng-show="account.AccountType=='Income' "  align="left">
+           <select   style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="Sales">Sales</option>
+           </select>           
+           </td>
+           <td ng-show="account.AccountType=='Expense' "  align="left">
+           <select   style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="GeneralExpenses">General Expense</option>
+           <option  value="SellingExpenses">Selling Expense</option>
+           </select>           
+           </td>
+           <td ng-show="account.AccountType=='CostOfGoodsSold' "  align="left">
+           <select   style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="CostOfGoodsSold">Cost Of Goods Sold</option>
+           </select>           
+           </td>
+           <td ng-show="account.AccountType=='OtherIncome'"  align="left">
+           <select   style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="OtherIncome">Other Income</option>
+           </select>           
+           </td>
+            <td ng-show="account.AccountType=='OtherExpense'"  align="left">
+           <select style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="OtherExpense">Other Expense</option>
+           </select>           
+           </td>
+          <td ng-show="account.AccountType=='NonPosting'"  align="left">
+          <select  style="width:120px;text-align:left" ng-model="account.class" >
+          <option ng-selected="selected" value="OtherExpense">Other Expense</option>
+          </select>
+          </td>
+          <ng-form name="qbImportSubForm" >
+           <td  ng-init="a=true" ng-if="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset'|| account.AccountType=='AccountsReceivable'"  align="left">
+           <select ng-class="{'error-message2':a}" ng-change="a=qbImportForm.currass_$index.$error.required; account.category='Asset';account.class='CurrentAsset'" name="currass" ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option value="cash">Cash</option>
+           <option value="Accounts Receivable">Accounts Receivable</option>
+           <option value="Other Receivables">Other Receivable</option>
+           <option value="Current Investments">Current Investments</option>
+           <option value="Inventory">Inventory</option>
+           <option value="OtherCurrentAsset">Other Current Asset</option>
+           </select>
+          </td>
+           <td ng-init="v=true" ng-if="account.AccountType=='FixedAsset'"  align="left">
+           <select ng-class="{'error-message2' : v } " ng-change="v=qbImportForm.fixass_$index.$error.required;account.category='Asset';account.class='FixedAsset'"  name="fixass_{{$index}}" ng-required="true"  style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option value="Equipment">Equipment</option>
+           <option value="Buildings">Buildings</option>
+           <option value="Depreciation">Depreciation</option>
+           <option value="Depreciation">qbImportForm.fixass_{{$index}}.$error.required</option>
+           </select>           
+           </td>
+           <td  ng-init="c=true"  ng-if="account.AccountType==OtherAsset"  align="left">
+           <select ng-class="{'error-message2':b}" name="othass" ng-change="c=qbImportForm.othass_$index.$error.required;account.category='Asset';account.class='OtherAsset'"  ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="Other Assets">Other Assets</option>
+           <option  value="Intangible Assets">Intangible Assets</option>
+           </select>           
+          </td>
+           <td  ng-init="d=true" ng-if="account.AccountType=='OtherCurrentLiability' || account.AccountType=='AccountsPayable' || account.AccountType=='CreditCard'"  align="left">
+           <select ng-class="{'error-message2': d}" name="currlib" ng-change="d=qbImportForm.currlib_$index.$error.required;account.category='Liability';account.class='CurrentLiability'"  ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option value="Accounts Payable">Accounts Payable</option>
+           <option  value="Due to Shareholder">Due to Shareholder</option>
+           <option  value="Loans Payable">Loans Payable</option>
+           <option value=" Other Payables"> Other Payables</option>
+           </select>           
+           </td>
+           <td ng-init="e=true" ng-if="account.AccountType=='LongTermLiability' "  align="left">
+           <select ng-class="{'error-message2': e}"  ng-change="e=qbImportForm.ltl_$index.$error.required;account.category='Liability';account.class='LongTermLiability'" name="ltl" ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option value="Loans Payable">Loans Payable</option>
+           <option  value="Shareholder Loans Payable">Shareholder Loans Payable</option>
+           <option  value="Other Long Term Payables">Other Long Term Payables</option>
+           </select>           
+           </td>
+           <td ng-init="f=true"  ng-if="account.AccountType=='Equity' "  align="left">
+           <select ng-class="{'error-message2': f}"  name="eq" ng-change="f=qbImportForm.eq_$index.$error.required;account.category='Equity';account.class='Equity'"  ng-required="true" style="width:120px;text-align:left" ng-model="account.subtype" >
+            <option value="Retained Earnings">Retained Earnings</option>
+            <option value="Draws">Draws</option>
+            <option value="PaidInCapital">Draws</option>
+           </select>           
+           </td>
+            <td ng-init="g=true" ng-if="account.AccountType=='Income' "  align="left">
+           <select ng-class="{'error-message2': g}"  ng-change="g=qbImportForm.inc_$index.$error.required;account.category='Revenue';account.class='Sales'"  name="inc" ng-required="true"  style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option value="Sales">Sales</option>
+           <option value="Fees">Fees</option>
+           </select>           
+           </td>
+           
+           <td   ng-init="h=true" ng-if="account.AccountType=='Expense' " align="left">
+           <select  ng-class="{'error-message2': h }"  ng-change="h=qbImportForm.genexp_$index.$error.required;account.category='Expense';account.class='GeneralExpenses'"  name="genexp" ng-required="true"  style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="Advertising">Advertising</option>
+           <option  value="Wages">Wages</option>
+           <option  value="Payroll Tax">Payroll Tax</option>
+           <option  value="Insurance">Insurance</option>
+           <option  value="Marketing">Marketing</option>
+           <option  value="Repairs">Maintenance & Repairs</option>
+           <option  value="Travel & Lodging">Lodging</option>
+           <option  value="Meals">Meals</option>
+           <option  value="Communication">Communication</option>
+           <option  value="Supplies">Supplies</option>
+           <option  value="Small Tools">Small Tools</option>
+           <option  value="Professional Fees">Professional Fees</option>
+           <option  value="Dues & Subscriptions">Dues & Subscriptions</option>
+           <option  value="Licenses & Permits">Licenses & Permits</option>
+           <option  value="Other Taxes">Other Taxes</option> 
+           <option  value="Depreciation">Depreciation</option> 
+           <option  value="Employee Benefits">Employee Benefits</option>
+           <option  value="Commissions">Commissions</option>
+           <option  value="Miscellaneous">Other Expense</option>
+
+           </select>           
+           </td>
+           <td ng-init="j=true"  ng-if="account.AccountType=='CostOfGoodsSold' "  align="left">
+           <select  ng-class="{'error-message2': j}" name="cgs" g-required="true" ng-change="j=qbImportForm.cgs_$index.$error.required;account.category='CostOfGoodsSold';account.class='CostOfGoodsSold'"   style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="Cost of Goods Sold">Cost Of Goods Sold</option>
+           </select>           
+           </td>
+           <td ng-init="k=true" ng-if="account.AccountType=='OtherIncome'"  align="left">
+           <select ng-class="{'error-message2': k}"   ng-change="k=qbImportForm.oi_$index.$error.required;account.category='OtherIncome';account.class='OtherIncome'" name="oi" ng-required="true" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="OtherIncome">Other Income</option>
+           </select>           
+           </td>
+           <td ng-init="m=true"  ng-if="account.AccountType=='OtherExpense'"  align="left">
+           <select ng-class="{'error-message2': m}"   ng-change="m=qbImportForm.oe_$index.$error.required;account.category='OtherExpense';account.class='OtherExpense'"  name="oe" ng-required="true" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="OtherExpense">Other Expense</option>
+           <option  value="Interest Expense">Interest Expense</option>
+           <option  value="Income Tax">Income Tax</option>
+           </select>           
+           </td>
+           <td  ng-init="n=true" ng-if="account.AccountType=='NonPosting'"  align="left">
+           <select ng-class="{'error-message2': n}"   ng-change="n=qbImportForm.np_$index.$error.required;account.category='OtherExpense';account.class='OtherExpense'"  name="np" ng-required="true" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <option  value="OtherExpense">Other Expense</option>
+           </select>
+           </td>
+            </ng-form >
+           </tr>
+          </table>
+         </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>

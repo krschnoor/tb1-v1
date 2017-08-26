@@ -142,5 +142,19 @@ this.addAccount = function(scope,cat,cls,sub,ssort,name){
   }
 
 
+this.getActiveAccounts = function(scope){
+ 
+  var deferred = $q.defer()
+
+  $http.get('/client/get',{params:{db:scope.openclient[0].name}}).success(function(data,status,headers,config){
+   scope.accounts = data
+    deferred.resolve()
+   }).error(function(data,status,headers,config){    })
+    
+    return deferred.promise
+
+ }
+
+
 
 })

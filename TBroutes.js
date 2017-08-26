@@ -5,6 +5,7 @@ var client = require('./controllers/addClientController.js')
 var clients = require('./controllers/clientsController.js')
 var entry = require('./controllers/ajeController.js')
 var closefye = require('./controllers/closeYearController.js')
+var QBDesktopController = require('./controllers/QBDeskTopController.js')
 
 app.use('/static',express.static('./static'))
 app.use('/lib',express.static('../lib'))
@@ -28,7 +29,8 @@ app.post('/deleteEntry/',entry.deleteAje);
 app.get('/ajes/get',entry.getAjes);
 app.get('/aje/get',entry.getAje);
 app.get('/getAjeReport/',entry.getAjeReport);
-
+app.post('/filterQbAccounts/',QBDesktopController.filterDeskTopAccounts);
+app.post('/postQBAccounts/',QBDesktopController.postQBAccounts)
 
 }
 
