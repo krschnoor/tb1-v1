@@ -25,9 +25,9 @@ setChart= function($scope){
         }
       
      }
-     
-     return parseFloat(totUnadj) || 0
    
+     return Math.abs(parseFloat(totUnadj)) || 0
+ 
    }}
 
 }

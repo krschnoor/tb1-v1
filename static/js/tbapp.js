@@ -152,7 +152,15 @@ $scope.printToCart = function(printSectionId) {
      $scope.content = '/static/' +   page
   }
 
- 
+
+ $scope.getContent = function(){
+
+   return $scope.content;
+ }
+
+
+
+
  $scope.addClient = function() {
   
 
@@ -309,8 +317,9 @@ $scope.printToCart = function(printSectionId) {
       QuickBooksService.postQBAccounts($scope,$scope.QBAccounts).then(function(){
         
               
-       chartservice.getActiveAccounts().then(function(){
+       chartservice.getActiveAccounts($scope).then(function(){
        
+        alert("QuickBooks Imported Successfully.")
         $scope.setContent('start.html')
 
        })  
@@ -323,7 +332,14 @@ $scope.printToCart = function(printSectionId) {
    }
 
 
+$scope.sa=function(){
+alert("p")
+  for(ctr=0;ctr<$scope.accounts.length;ctr++){
 
+ alert($scope.accounts[ctr].name + " " + $scope.accounts[ctr].csort + ' ' + $scope.accounts[ctr].ssort)
+
+  }
+}
 
 
 

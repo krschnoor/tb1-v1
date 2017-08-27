@@ -74,28 +74,28 @@ div.tab button.active {
       <a class="navbar-brand" href="#">Trial Balance Express <small ng-model="client.name">{{client.name}}</small></a>
     </div>
     <ul class="nav navbar-nav">
-      <li ng-class="{disabled: getChartBegBalances() !=0}" ng-click="setContent('start.html')" class="active"><a   href="#">Home - Status</a></li>
-      <li  ng-class="{disabled: (!currentfye || getChartBegBalances() !=0)}" class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
+      <li ng-class="{disabled: getContent()=='/static/chartEdit.html'}" ng-click="setContent('start.html')" class="active"><a   href="#">Home - Status</a></li>
+      <li  ng-class="{disabled: (!currentfye || getContent()=='/static/chartEdit.html')}" class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li ng-click="setContent('classBalanceSheet.html')"><a  href="#">Classified Balance Sheet</a></li>
           <li ng-click="setContent('classIncomeStatement.html')" ><a href="#">Classified Income Statement</a></li>
           <li ng-click="setContent('standardTrialBalance.html')"><a href="#">Standard Trial Balance</a></li>
         </ul>
       </li>
-     <li ng-class="{disabled: (!currentfye || getChartBegBalances() !=0)}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Accounts<span class="caret"></span></a>
+     <li ng-class="{disabled: (!currentfye || getContent()=='/static/chartEdit.html')}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Accounts<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li ng-click="setContent('aje.html')"><a  href="#">Journal Entry</a></li>
           <li ng-click="setContent('addAccount.html')"><a href="#">New Account</a></li>
         </ul>
       </li>
-      <li ng-class="{disabled: (!currentfye || getChartBegBalances() !=0)}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tasks<span class="caret"></span></a>
+      <li ng-class="{disabled: (!currentfye || getContent()=='/static/chartEdit.html')}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tasks<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li ng-click="setContent('chartEdit.html')"><a  href="#">Enter Beginning Balances</a></li>
           <li ng-click="setContent('ajeReport.html')"><a href="#">Aje List</a></li>
           <li ng-click="setContent('closeYear.html')"><a href="#">Close Fiscal Year</a></li>
         </ul>
       </li>
-      <li ng-class="{disabled: (!currentfye || getChartBegBalances() !=0)}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Import<span class="caret"></span></a>
+      <li ng-class="{disabled: (!currentfye || getContent()=='/static/chartEdit.html')}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Import<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li ng-click="setContent('qbSetUp.html')"><a  href="#">QuickBooks Desktop</a></li>
        </ul>

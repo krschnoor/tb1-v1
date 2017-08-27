@@ -31,7 +31,7 @@ exports.getClient = function(req,res){
 
   var collection = db.collection('accounts');
 
-    collection.find().sort({csort:1,ssort:1} ).toArray(function(err, accounts) {
+    collection.find({},{"sort": [['fs','asc'], ['csort','asc'],['ssort','asc']]}).toArray(function(err, accounts) {
         res.json(accounts) //accounts comes here.
         db.close()
     });    

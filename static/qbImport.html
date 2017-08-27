@@ -11,7 +11,7 @@
 �       <div class="form-group col-xs-11" >
          <span ng-model="openclient" >{{openclient[0].name}}</span> 
           <br/>
-          <span><button   style="margin-top:10px;margin-bottom:10px" type="submit" class='btn btn-prmimary' ng-disabled="qbImportForm.$invalid || !qbImportForm.$pristine || $parent.QBAccounts.length==0">Post Accounts</button></span>
+          <span><button   style="margin-top:10px;margin-bottom:10px" type="submit" class='btn btn-prmimary' ng-disabled="qbImportForm.$invalid || $parent.QBAccounts.length==0">Post Accounts</button></span>
           <table  width="10%" class="table table-bordered table-condensed table-fixed">
           <tr style="background-color:#000;color:#fff">
           
@@ -26,7 +26,7 @@
           <h4 ng-if="$parent.QBAccounts.length==0">No New QuickBooks Accounts to Import</h4>
           <td   align="left" >{{account.FullName}}</td>
           <td   align="left">{{account.AccountType}}</td>
-          <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset' || account.AccountType=='FixedAsset' || account.AccountType=='AccountsReceivable'"  align="left">
+          <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset' ||  account.AccountType=='OtherAsset' || account.AccountType=='FixedAsset' || account.AccountType=='AccountsReceivable'"  align="left">
            
           <select style="width:120px;text-align:left" ng-model="account.category" >
           <option ng-selected="selected" value="Asset">Asset</Option>
@@ -72,7 +72,7 @@
           <option ng-selected="selected" value="OtherExpense">Other Expense</option>
           </select>
           </td>
-           <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset'|| account.AccountType=='AccountsReceivable'"  align="left">
+           <td ng-show="account.AccountType=='Bank' || account.AccountType=='OtherCurrentAsset'|| account.AccountType=='AccountsReceivable' "  align="left">
            <select style="width:120px;text-align:left" ng-model="account.class" >
            <option ng-selected="selected" value="CurrentAsset">Current Asset</option>
            </select>
@@ -80,6 +80,11 @@
            <td ng-show="account.AccountType=='FixedAsset'"  align="left">
            <select  style="width:120px;text-align:left" ng-model="account.class" >
            <option ng-selected="selected" value="FixedAsset">Fixed Asset</option>
+           </select>           
+          </td>
+           <td ng-show="account.AccountType=='OtherAsset'"  align="left">
+           <select  style="width:120px;text-align:left" ng-model="account.class" >
+           <option ng-selected="selected" value="OtherAsset">Other Asset</option>
            </select>           
           </td>
            <td ng-show="account.AccountType=='OtherCurrentLiability' || account.AccountType=='AccountsPayable' || account.AccountType=='CreditCard'"  align="left">
@@ -143,12 +148,13 @@
            <select ng-class="{'error-message2' : v } " ng-change="v=qbImportForm.fixass_$index.$error.required;account.category='Asset';account.class='FixedAsset'"  name="fixass_{{$index}}" ng-required="true"  style="width:120px;text-align:left" ng-model="account.subtype" >
            <option value="Equipment">Equipment</option>
            <option value="Buildings">Buildings</option>
+           <option value="Land">Land</option>
            <option value="Depreciation">Depreciation</option>
-           <option value="Depreciation">qbImportForm.fixass_{{$index}}.$error.required</option>
+          
            </select>           
            </td>
-           <td  ng-init="c=true"  ng-if="account.AccountType==OtherAsset"  align="left">
-           <select ng-class="{'error-message2':b}" name="othass" ng-change="c=qbImportForm.othass_$index.$error.required;account.category='Asset';account.class='OtherAsset'"  ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
+           <td  ng-init="c=true"  ng-if="account.AccountType=='OtherAsset'"  align="left">
+           <select ng-class="{'error-message2':c}" name="othass" ng-change="c=qbImportForm.othass_$index.$error.required;account.category='Asset';account.class='OtherAsset'"  ng-required="true" size="1" style="width:120px;text-align:left" ng-model="account.subtype" >
            <option  value="Other Assets">Other Assets</option>
            <option  value="Intangible Assets">Intangible Assets</option>
            </select>           
@@ -158,6 +164,9 @@
            <option value="Accounts Payable">Accounts Payable</option>
            <option  value="Due to Shareholder">Due to Shareholder</option>
            <option  value="Loans Payable">Loans Payable</option>
+           <option value="Accrued Wages">Accrued Wages</option>
+           <option value="Accrued Payroll Taxes">Accrued Payroll Taxes</option>
+           <option value="Other Current Liability">Other Current Liability</option>
            <option value=" Other Payables"> Other Payables</option>
            </select>           
            </td>
@@ -199,6 +208,14 @@
            <option  value="Dues & Subscriptions">Dues & Subscriptions</option>
            <option  value="Licenses & Permits">Licenses & Permits</option>
            <option  value="Other Taxes">Other Taxes</option> 
+           <option value="Utilities">Utilities</option>
+           <option value="Bad Debts">Bad Debts</option>
+           <option value="Rent">Rent</option>
+           <option value="Interest">Interest</option>
+           <option value="Auto">Auto</option>
+           <option value="BankCharges">Bank Charges</option>
+           <option value="Postage">Postage</option>
+           <option value="Printing">Printing</option>
            <option  value="Depreciation">Depreciation</option> 
            <option  value="Employee Benefits">Employee Benefits</option>
            <option  value="Commissions">Commissions</option>

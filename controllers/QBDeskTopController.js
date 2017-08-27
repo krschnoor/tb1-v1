@@ -18,7 +18,7 @@ exports.filterDeskTopAccounts = function(req,res){
       var collection = db.collection('accounts');
       
      
-       collection.find().toArray(function(err,accounts) {
+       collection.find({},{"sort": [['fs','asc'], ['csort','asc'],['ssort','asc']]}).toArray(function(err,accounts) {
          if(!err){
          res.json(200,accounts)
          console.log(accounts) 
@@ -122,7 +122,7 @@ exports.postQBAccounts = function(req,res){
 
   
      acctobj.ssort = 1
-     
+     acctobj.active = true
      acctobj.ListID =  accounts[ctr].ListID
  
 
