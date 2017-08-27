@@ -107,8 +107,13 @@ $scope.printToCart = function(printSectionId) {
 
   
    chartservice.postChart($scope).then(function(){
+
+    chartservice.getActiveAccounts($scope).then(function(){
   
-    $scope.setContent('start.html')
+    $scope.setContent('start.html')}
+  
+    )
+    
 
    })
    
@@ -184,7 +189,7 @@ $scope.printToCart = function(printSectionId) {
 
  }
 
-
+// create client service put in there
  
  $scope.getClients = function(){
  
@@ -196,7 +201,7 @@ $scope.printToCart = function(printSectionId) {
 
   }
 
-
+//create client service put in there
  $scope.openClient = function(name){
  
  $http.get('/client/get',{params:{db:name}}).success(function(data,status,headers,config){
@@ -207,7 +212,7 @@ $scope.printToCart = function(printSectionId) {
    $scope.accounts = data
    $scope.getClientInfo(name)
    $scope.getAjes(name)
-   //$scope.postAje()
+   
    
    }).error(function(data,status,headers,config){    })
  
@@ -216,6 +221,8 @@ $scope.printToCart = function(printSectionId) {
 
 
   }
+
+// create client service put in there
 
  $scope.getClientInfo = function(name){
 
@@ -228,11 +235,13 @@ $scope.printToCart = function(printSectionId) {
 }
 
 
- // put in ajeService
-  $scope.getAjes = function(name){
-  ajeservice.getAjes($scope,name) }
+   $scope.getAjes = function(name){
+    
+    ajeservice.getAjes($scope,name).then(function(){}
+    
+    ) }
 
-  //put in ajeService
+  
   $scope.getAje = function(name,id){
     
     ajeservice.getAje($scope,name,id).then(function(){

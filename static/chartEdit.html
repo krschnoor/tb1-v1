@@ -1,4 +1,4 @@
-<div style="font-size:x-small;margin-top:-20px; width: 100%;height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container container-fluid col-sm-12" autoscroll="true">
+<div style="font-size:x-small;margin-top:-20px; width: 100%;height: 86vh; min-height:86vh; overflow-y: auto" ng-class="main" class="container container-fluid col-md-12" autoscroll="true">
    <div class="panel-group">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -19,7 +19,7 @@
          <th   class="col-xs-3">Account</th>
          <th   class="col-xs-1 text-left" >Class</th>
          <th   class= "col-xs-3 text-left">Sub-Type</th>
-         <th   class= "col-xs-1 text-left">Sub-Sort</th>
+         <th   class= "col-md-1 text-left">Sub-Sort</th>
          <th   class="col-md-4 text-left">Unadj. Bal.</th>
          <th>Active</th>
          </tr>
@@ -32,7 +32,7 @@
            <td width="20%">{{account.subtype}}</td>
            
            <ng-form name="chartSubForm">
-           <td width="11%"><input name="ssort"  ng-required="true" focus class="text-right col-lg-9" type="number" ng-model="account.ssort"  /></td>
+           <td width="11%"><input name="ssort"  ng-required="true" focus class="text-right col-lg-10" type="number" ng-model="account.ssort"  /></td>
           
            <td  width="29%"  ng-repeat="balance in account.balances |  filter :  {tbyear: currenttbyear } |  filter :  {tbday: currenttbday } |  filter :  {tbmonth: currenttbmonth }">  
            <input  name="unadjbal"  class="text-right col-lg-10" type="number" ng-model="balance.unadjbal"  /></td>
